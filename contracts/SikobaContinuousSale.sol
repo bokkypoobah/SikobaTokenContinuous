@@ -173,6 +173,9 @@ contract SikobaContinuousSale is ERC20Token {
     string public constant name = "Sikoba Continuous Sale";
     uint8 public constant decimals = 18;
 
+    address multisig;
+    bool public mintingCompleted = false;
+
     uint256 public deployedAt;
 
     function SikobaContinuousSale() {
@@ -224,6 +227,7 @@ contract SikobaContinuousSale is ERC20Token {
             balances[msg.sender] += tokens;
             TokensBought(msg.sender, msg.value, this.balance, tokens,
                  _totalSupply, buyPrice());
+            if (!multisig.send(msg.value)) throw;
         }
     }
     event TokensBought(address indexed buyer, uint256 ethers, 
@@ -232,34 +236,22 @@ contract SikobaContinuousSale is ERC20Token {
 
 
     // ------------------------------------------------------------------------
-    // Sell tokens to the contract
+    // Owner can mint tokens
     // ------------------------------------------------------------------------
-    function sellTokens(uint256 amountOfTokens) {
-        if (amountOfTokens > balances[msg.sender]) throw;
-        balances[msg.sender] -= amountOfTokens;
-        _totalSupply -= amountOfTokens;
-        uint256 ethersToSend = amountOfTokens * sellPrice() / 1 ether;
-        if (!msg.sender.send(ethersToSend)) throw;
-        TokensSold(msg.sender, ethersToSend, this.balance, amountOfTokens,
-            _totalSupply, sellPrice());
+    function mint(address participant, uint256 tokens) onlyOwner {
+        if (mintingCompleted) throw;
+        balanceOf[participant] += tokens;
+        totalSupply += tokens;
+        Transfer(0, this, tokens);
+        Transfer(this, participant, tokens);
     }
-    event TokensSold(address indexed seller, uint256 ethers, 
-        uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
-        uint256 sellPrice);
 
-/*
+
     // ------------------------------------------------------------------------
-    // Owner Withdrawal
+    // No more mining to be done
     // ------------------------------------------------------------------------
-    function ownerWithdraw(uint256 amount) onlyOwner {
-        uint256 maxWithdrawalAmount = amountOfEthersOwnerCanWithdraw();
-        if (amount > this.balance) {
-            amount = this.balance;
-        }
-        if (!owner.send(amount)) throw;
-        Withdrawn(amount, maxWithdrawalAmount - amount);
+    function setMintingCompleted() onlyOwner {
+        mintingCompleted = true;
     }
-    event Withdrawn(uint256 amount, uint256 remainingWithdrawal);
-    */
 }
  
