@@ -9,6 +9,7 @@
 * Token price
   * 1 ETH = 1,650 SKO0 on Jun 01 2017
   * 1 ETH = 1,200 SKO0 on Oct 29 2017 (1,650 - 1200 = 450 = 3 * 150). Price down by 3 SKO0 per day, linearly (not stepped)
+  * tokens = (now - START_DATE) / (END_DATE - START_DATE) * (END_FACTOR - START_FACTOR) + START_FACTOR
 * Max funding in USD
   * `setUSDRate(...)` to be called manually when rate deviates by more than 5%
   * Keep track of total funding * USD rate and sale completed when this amount exceeds the max USD funding
