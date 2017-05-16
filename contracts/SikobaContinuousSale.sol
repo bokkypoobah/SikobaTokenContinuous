@@ -173,8 +173,22 @@ contract SikobaContinuousSale is ERC20Token {
     string public constant name = "Sikoba Continuous Sale";
     uint8 public constant decimals = 18;
 
-    uint256 public constant START_DATE = 123;
-    uint256 public constant END_DATE = 456;
+    // Thursday, 01-Jun-17 00:00:00
+    uint256 public constant START_DATE = 1496275200;
+
+    // Sunday, 29-Oct-17 00:00:00 UTC
+    uint256 public constant END_DATE = 1509235200;
+
+    // starting number of skoo units per ETH (each skoo subdivisible to 10**18)
+    uint256 public constant START_SKOO_UNITS = 1650;
+
+    // period between start and end dates: 150 days = 12,960,000 seconds
+    // decrease of skoo units per second = 34,722,222,222,222
+    // 12,960,000  34,722,222,222,222 = 449,999,999,999,997,120,000 ~ 450 10**18
+    // skoo units per ETH at the end = 1200,000,000,000,002,880,000 wei
+    uint256 public constant SKOO_DECREASE_PER_SECOND = 34722222222222;
+    // maximum funding in US$
+    uint256 public constant SALE_MAXIMUM_FUNDING = 400000;
 
     address multisig;
     bool public mintingCompleted = false;
