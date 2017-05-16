@@ -4,8 +4,8 @@
 
 * Mint function for participants who provide funding in fiat and ETH prior to token sale start
 * Flag to indicate when minting completed
-* Start contribution period - Jun 01 2017
-* End contribution period - Oct 29 2017 (150 days)
+* Start contribution period - Jun 01 2017. Thursday, 01-Jun-17 00:00:00 UTC = 1496275200
+* End contribution period - Oct 29 2017 (150 days). Sunday, 29-Oct-17 00:00:00 UTC = 1509235200
 * Token price
   * 1 ETH = 1,650 SKO0 on Jun 01 2017
   * 1 ETH = 1,200 SKO0 on Oct 29 2017 (1,650 - 1200 = 450 = 3 * 150). Price down by 3 SKO0 per day, linearly (not stepped)
