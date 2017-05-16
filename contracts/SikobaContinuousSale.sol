@@ -173,6 +173,9 @@ contract SikobaContinuousSale is ERC20Token {
     string public constant name = "Sikoba Continuous Sale";
     uint8 public constant decimals = 18;
 
+    uint256 public constant START_DATE = 123;
+    uint256 public constant END_DATE = 456;
+
     address multisig;
     bool public mintingCompleted = false;
 
