@@ -4,13 +4,18 @@
 
 * Mint function for participants who provide funding in fiat and ETH prior to token sale start
 * Flag to indicate when minting completed
-* Start contribution period - Jun 01 2017. Thursday, 01-Jun-17 00:00:00 UTC = 1496275200
-* End contribution period - Oct 29 2017 (150 days). Sunday, 29-Oct-17 00:00:00 UTC = 1509235200
-* Token price
-  * 1 ETH = 1,650 SKO0 on Jun 01 2017
-  * 1 ETH = 1,200 SKO0 on Oct 29 2017 (1,650 - 1200 = 450 = 3 * 150). Price down by 3 SKO0 per day, linearly (not stepped)
-  * tokens = (now - START_DATE) / (END_DATE - START_DATE) * (END_FACTOR - START_FACTOR) + START_FACTOR
+* Start contribution period - Thursday, 01-Jun-17 00:00:00 UTC = 1496275200
+* End contribution period - Thursday, 31-Oct-17 23:59:59 UTC = 1509494399
+* Tokens per ETH
+  * 1 ETH = 1,650 SKO1 on 01-Jun-2017
+  * 1 ETH = 1,200 SKO1 on 31-Oct-2107
+  * linear decline of number of tokens per ETH over time
 * Max funding in USD
-  * `setUSDRate(...)` to be called manually when rate deviates by more than 5%
-  * Keep track of total funding * USD rate and sale completed when this amount exceeds the max USD funding
-* Multisig wallet to receive funds
+  * `setUsdPerHundredETH(...)` to be called manually when rate deviates by more than 5%
+  * Keep track of total funding * USD rate
+  * Soft limit maximum finding in USD terms = 400,000
+  * When soft limit reached accept contributions for an additional 24 hours
+* Pausing funding
+  * The owner can temporarily stop funding via `pause()` in case there is some event or announcement which will materially affect the project.
+  * Funding can be restarted via `restart()`
+* Multisig wallet to receive funds (???)

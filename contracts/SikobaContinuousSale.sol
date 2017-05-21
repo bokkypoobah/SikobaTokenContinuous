@@ -190,7 +190,7 @@ contract SikobaContinuousSale is ERC20Token {
     // Owner settings
     // ------------------------------------------------------------------------
     
-    function setUsdPerHundredETH (uint256 value) external onlyOwner {
+    function setUsdPerHundredETH(uint256 value) external onlyOwner {
       usdPerHundredETH = value; // if coinmarketcap $131.14 then send 13114
     }
     
