@@ -150,7 +150,7 @@ contract SikobaContinuousSale is ERC20Token {
     // ------------------------------------------------------------------------
     // Token information
     // ------------------------------------------------------------------------
-    string public constant symbol = "SKO0";
+    string public constant symbol = "SKO1";
     string public constant name = "Sikoba Continuous Sale";
     uint8 public constant decimals = 18;
 
@@ -168,12 +168,14 @@ contract SikobaContinuousSale is ERC20Token {
     uint256 public constant MAX_USD_FUNDING = 400000;
     bool public maxUsdFundingReached = false;
     uint256 public usdPerHundredETH;
-    uint256 public totalUsdFunding;
-    uint256 public constant softEndDate = END_DATE;
+    uint256 public totalUsdFunding = 0;
+    uint256 public softEndDate = END_DATE;
     
-    address multisig;
+    // status variables
     bool public mintingCompleted = false;
     bool public fundingPaused = false;
+    
+    address multisig;
     uint256 public deployedAt;
 
     // ------------------------------------------------------------------------
