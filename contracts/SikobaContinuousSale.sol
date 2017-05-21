@@ -194,11 +194,11 @@ contract SikobaContinuousSale is ERC20Token {
       usdPerHundredETH = value; // if coinmarketcap $131.14 then send 13114
     }
     
-    function pause () external onlyOwner {
+    function pause() external onlyOwner {
       fundingPaused = true;
     }
 
-    function restart () external onlyOwner {
+    function restart() external onlyOwner {
       fundingPaused = false;
     }
 
