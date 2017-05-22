@@ -160,9 +160,9 @@ contract SikobaContinuousSale is ERC20Token {
     // Tuesday, 31-Oct-17 23:59:59 UTC
     uint256 public constant END_DATE = 1509494399;
 
-    // number of SKOK units per ETH at beginning and end
-    uint256 public constant START_SKOK_UNITS = 1650;
-    uint256 public constant END_SKOK_UNITS = 1200;
+    // number of SKO1 units per ETH at beginning and end
+    uint256 public constant START_SKO1_UNITS = 1650;
+    uint256 public constant END_SKO1_UNITS = 1200;
 
     // maximum funding in US$
     uint256 public constant MAX_USD_FUNDING = 400000;
@@ -179,6 +179,16 @@ contract SikobaContinuousSale is ERC20Token {
     uint256 public deployedAt;
 
     // ------------------------------------------------------------------------
+    // event logging
+    // ------------------------------------------------------------------------
+    
+    event UsdRateSet(uint256 timestamp, uint256 value);
+
+    event TokensBought(address indexed buyer, uint256 ethers, 
+          uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
+          uint256 unitsPerEth);
+          
+    // ------------------------------------------------------------------------
     // ???
     // ------------------------------------------------------------------------
 
@@ -192,6 +202,7 @@ contract SikobaContinuousSale is ERC20Token {
     
     function setUsdPerHundredETH(uint256 value) external onlyOwner {
       usdPerHundredETH = value; // if coinmarketcap $131.14 then send 13114
+      UsdRateSet(now, value);
     }
     
     function pause() external onlyOwner {
@@ -223,7 +234,7 @@ contract SikobaContinuousSale is ERC20Token {
     // ------------------------------------------------------------------------
 
     function unitsPerEth() external returns (uint256) {
-      return START_SKOK_UNITS * 10**18 - (START_SKOK_UNITS - END_SKOK_UNITS) * 10**18 * (now - START_DATE) / (END_DATE - START_DATE)
+      return START_SKO1_UNITS * 10**18 - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 * (now - START_DATE) / (END_DATE - START_DATE)
     }
 
     function () payable {
@@ -231,30 +242,36 @@ contract SikobaContinuousSale is ERC20Token {
     }
 
     function buyTokens() payable {
-        if (fundingPaused) throw;
-        if (now < START_DATE) throw;
-        if (now > END_DATE) throw;
-        if (now > softEndDate) throw;
-        if (maximumFundingReached) throw;
-        if (msg.value * 1 ether < 10**16) throw; // ?? not sure the * 1 ether is needed
+    
+      // check conditions
+      //
+      if (fundingPaused) throw;
+      if (now < START_DATE) throw;
+      if (now > END_DATE) throw;
+      if (now > softEndDate) throw;
+      if (msg.value < 10**16) throw; // at least ETH 0.01
 
-        uint256 units = unitsPerEth();
-        uint256 tokens = msg.value * 1 ether * units / 10**18;
-        _totalSupply += tokens;
-        totalFundingInUsd += msg.value * 1 ether * usdPerHundredETH / 10**20;
-        balances[msg.sender] += tokens;
-        
-        if (!maxUsdFundingReached && totalFundingInUsd > MAX_USD_FUNDING) {
-          softEndDate = now + 24*60*60;
-          maxUsdFundingReached = true;
-        }
-        
-        TokensBought(msg.sender, msg.value, this.balance, tokens, _totalSupply, units); // ??
-        if (!multisig.send(msg.value)) throw; // ??
+      // tokens issued
+      //      
+      uint256 tokens = msg.value * unitsPerEth() / 10**18;
+      _totalSupply += tokens;
+      balances[msg.sender] += tokens;
+      
+      // appriximative funding in USD
+      //
+      totalFundingInUsd += msg.value * usdPerHundredETH / 10**20;
+      if (!maxUsdFundingReached && totalFundingInUsd > MAX_USD_FUNDING) {
+        softEndDate = now + 24*60*60;
+        maxUsdFundingReached = true;
+      }
+      
+      // log event
+      //
+      TokensBought(msg.sender, msg.value, this.balance, tokens, _totalSupply, units);
+      
+      
+      if (!multisig.send(msg.value)) throw; // ??
 
-        event TokensBought(address indexed buyer, uint256 ethers, 
-          uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
-          uint256 unitsPerEth);
     }
     
 
