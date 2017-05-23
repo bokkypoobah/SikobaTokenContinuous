@@ -255,11 +255,13 @@ contract SikobaContinuousSale is ERC20Token {
       if (now > softEndDate) throw;
       if (msg.value < 10**16) throw; // at least ETH 0.01
 
-      // tokens issued
+      // issue tokens
       //      
       uint256 tokens = msg.value * unitsPerEth() / 10**18;
       _totalSupply += tokens;
       balances[msg.sender] += tokens;
+      Transfer(0, this, tokens);
+      Transfer(this, msg.sender, tokens);
       
       // appriximative funding in USD
       //
