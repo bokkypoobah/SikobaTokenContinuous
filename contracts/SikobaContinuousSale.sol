@@ -166,6 +166,7 @@ contract SikobaContinuousSale is ERC20Token {
 
     // maximum funding in US$
     uint256 public constant MAX_USD_FUNDING = 400000;
+    uint256 totalFundingInUsd;
     bool public maxUsdFundingReached = false;
     uint256 public usdPerHundredETH;
     uint256 public totalUsdFunding = 0;
@@ -184,9 +185,8 @@ contract SikobaContinuousSale is ERC20Token {
     
     event UsdRateSet(uint256 timestamp, uint256 value);
 
-    event TokensBought(address indexed buyer, uint256 ethers, 
-          uint256 newEtherBalance, uint256 tokens, uint256 newTotalSupply, 
-          uint256 unitsPerEth);
+    event TokensBought(address indexed buyer, uint256 ethers, uint256 tokens, 
+          uint256 newTotalSupply, uint256 units);
           
     // ------------------------------------------------------------------------
     // ???
@@ -223,8 +223,8 @@ contract SikobaContinuousSale is ERC20Token {
     // ------------------------------------------------------------------------
     function mint(address participant, uint256 tokens) onlyOwner {
         if (mintingCompleted) throw;
-        balanceOf[participant] += tokens;
-        totalSupply += tokens;
+        balances[participant] += tokens;
+        _totalSupply += tokens;
         Transfer(0, this, tokens);
         Transfer(this, participant, tokens);
     }
@@ -233,8 +233,12 @@ contract SikobaContinuousSale is ERC20Token {
     // Buy tokens from the contract
     // ------------------------------------------------------------------------
 
-    function unitsPerEth() external returns (uint256) {
-      return START_SKO1_UNITS * 10**18 - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 * (now - START_DATE) / (END_DATE - START_DATE)
+    function unitsPerEthExt() external returns (uint256) {
+      return START_SKO1_UNITS * 10**18 - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 * (now - START_DATE) / (END_DATE - START_DATE);
+    }
+
+    function unitsPerEth() returns (uint256) {
+      return START_SKO1_UNITS * 10**18 - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 * (now - START_DATE) / (END_DATE - START_DATE);
     }
 
     function () payable {
@@ -267,13 +271,15 @@ contract SikobaContinuousSale is ERC20Token {
       
       // log event
       //
-      TokensBought(msg.sender, msg.value, this.balance, tokens, _totalSupply, units);
+      TokensBought(msg.sender, msg.value, tokens, _totalSupply, unitsPerEth());
       
-      
-      if (!multisig.send(msg.value)) throw; // ??
-
+      // send balance to owner
+      //
+      owner.transfer(this.balance);
     }
     
-
+    function ownerWithdraw() external onlyOwner {
+        if (!owner.send(this.balance)) throw;
+    }
 }
  
