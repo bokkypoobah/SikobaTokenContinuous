@@ -75,9 +75,10 @@ contract ERC20Token is Owned {
     // Transfer the balance from owner's account to another account
     // ------------------------------------------------------------------------
     function transfer(address _to, uint256 _amount) returns (bool success) {
-        if (balances[msg.sender] >= _amount
-            && _amount > 0
-            && balances[_to] + _amount > balances[_to]) {
+        if (balances[msg.sender] >= _amount             // User has balance
+            && _amount > 0                              // Non-zero transfer
+            && balances[_to] + _amount > balances[_to]  // Overflow check
+        ) {
             balances[msg.sender] -= _amount;
             balances[_to] += _amount;
             Transfer(msg.sender, _to, _amount);
@@ -103,7 +104,7 @@ contract ERC20Token is Owned {
 
     // ------------------------------------------------------------------------
     // Spender of tokens transfer an amount of tokens from the token owner's
-    // balance to the spender's account. The owner of the tokens must already
+    // balance to another account. The owner of the tokens must already
     // have approve(...)-d this transfer
     // ------------------------------------------------------------------------
     function transferFrom(
@@ -111,10 +112,11 @@ contract ERC20Token is Owned {
         address _to,
         uint256 _amount
     ) returns (bool success) {
-        if (balances[_from] >= _amount
-            && allowed[_from][msg.sender] >= _amount
-            && _amount > 0
-            && balances[_to] + _amount > balances[_to]) {
+        if (balances[_from] >= _amount                  // From a/c has balance
+            && allowed[_from][msg.sender] >= _amount    // Transfer approved
+            && _amount > 0                              // Non-zero transfer
+            && balances[_to] + _amount > balances[_to]  // Overflow check
+        ) {
             balances[_from] -= _amount;
             allowed[_from][msg.sender] -= _amount;
             balances[_to] += _amount;

@@ -16,7 +16,7 @@
 * End contribution period - Thursday, 31-Oct-17 23:59:59 UTC = 1509494399
 * Tokens per ETH
   * 1 ETH = 1,650 SKO1 on 01-Jun-2017
-  * 1 ETH = 1,200 SKO1 on 31-Oct-2107
+  * 1 ETH = 1,200 SKO1 on 31-Oct-2017
   * linear decline of number of tokens per ETH over time
   * correponds to a continuous and (slightly) accelerating token price increase over time 
 * Max funding in USD
