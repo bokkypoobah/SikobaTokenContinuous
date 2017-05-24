@@ -30,7 +30,7 @@
 
 ## Open issues
 
-* need to decide if `totalUsdFunding` should include
+* need to decide if `totalUsdFunding` should include private sale
 * need to decide on the size of the bonus pool
 
 ## To do just before launch  
