@@ -175,10 +175,6 @@ contract SikobaContinuousSale is ERC20Token {
     bool public mintingCompleted = false;
     bool public fundingPaused = false;
     
-    // ???
-    // address multisig;
-    // ???
-    
     uint256 public deployedAt;
 
     // ------------------------------------------------------------------------
