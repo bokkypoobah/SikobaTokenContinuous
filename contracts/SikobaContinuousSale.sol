@@ -169,7 +169,6 @@ contract SikobaContinuousSale is ERC20Token {
     uint256 public totalFundingInUsd;
     bool public maxUsdFundingReached = false;
     uint256 public usdPerHundredETH;
-    uint256 public totalUsdFunding = 0;
     uint256 public softEndDate = END_DATE;
     
     // status variables
@@ -233,7 +232,7 @@ contract SikobaContinuousSale is ERC20Token {
     // Buy tokens from the contract
     // ------------------------------------------------------------------------
 
-    function unitsPerEth() public returns (uint256) {
+    function unitsPerEth() constant returns (uint256) {
       return START_SKO1_UNITS * 10**18 - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 * (now - START_DATE) / (END_DATE - START_DATE);
     }
 
