@@ -233,11 +233,7 @@ contract SikobaContinuousSale is ERC20Token {
     // Buy tokens from the contract
     // ------------------------------------------------------------------------
 
-    function unitsPerEthExt() external returns (uint256) {
-      return START_SKO1_UNITS * 10**18 - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 * (now - START_DATE) / (END_DATE - START_DATE);
-    }
-
-    function unitsPerEth() returns (uint256) {
+    function unitsPerEth() public returns (uint256) {
       return START_SKO1_UNITS * 10**18 - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 * (now - START_DATE) / (END_DATE - START_DATE);
     }
 
