@@ -166,7 +166,7 @@ contract SikobaContinuousSale is ERC20Token {
 
     // maximum funding in US$
     uint256 public constant MAX_USD_FUNDING = 400000;
-    uint256 public totalFundingInUsd;
+    uint256 public totalUsdFunding;
     bool public maxUsdFundingReached = false;
     uint256 public usdPerHundredETH;
     uint256 public softEndDate = END_DATE;
@@ -175,7 +175,10 @@ contract SikobaContinuousSale is ERC20Token {
     bool public mintingCompleted = false;
     bool public fundingPaused = false;
     
-    address multisig;
+    // ???
+    // address multisig;
+    // ???
+    
     uint256 public deployedAt;
 
     // ------------------------------------------------------------------------
@@ -188,7 +191,7 @@ contract SikobaContinuousSale is ERC20Token {
           uint256 newTotalSupply, uint256 units);
           
     // ------------------------------------------------------------------------
-    // ???
+    // registers time of deployment
     // ------------------------------------------------------------------------
 
     function SikobaContinuousSale() {
@@ -260,8 +263,8 @@ contract SikobaContinuousSale is ERC20Token {
       
       // appriximative funding in USD
       //
-      totalFundingInUsd += msg.value * usdPerHundredETH / 10**20;
-      if (!maxUsdFundingReached && totalFundingInUsd > MAX_USD_FUNDING) {
+      totalUsdFunding += msg.value * usdPerHundredETH / 10**20;
+      if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
         softEndDate = now + 24*60*60;
         maxUsdFundingReached = true;
       }
