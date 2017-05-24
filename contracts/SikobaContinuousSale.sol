@@ -166,7 +166,7 @@ contract SikobaContinuousSale is ERC20Token {
 
     // maximum funding in US$
     uint256 public constant MAX_USD_FUNDING = 400000;
-    uint256 totalFundingInUsd;
+    uint256 public totalFundingInUsd;
     bool public maxUsdFundingReached = false;
     uint256 public usdPerHundredETH;
     uint256 public totalUsdFunding = 0;
