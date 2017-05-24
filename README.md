@@ -1,8 +1,8 @@
-# Sikoba Token Continuous
+# Sikoba Continuous Token Sale Contract (June-October 2017)
 
 ## Introductory notes
 
-* one presale SKO is now represnted as 1,000 SKO1 (instead of SKOK as initially written on the web site)
+* one presale SKO is now represented as 1,000 SKO1 (instead of SKOK as initially written on the web site)
 * some initial (manual) testing completed, full testing remains to be done
 * we aim to deploy the contract before 1st June, but reserve the right to delay by a few days if any issues are found during testing
 
