@@ -11,7 +11,7 @@ pragma solidity ^0.4.8;
 //
 // ----------------------------------------------------------------------------
 
- 
+
  contract Owned {
     address public owner;
     address public newOwner;
@@ -43,7 +43,7 @@ pragma solidity ^0.4.8;
 //
 // ERC Token Standard #20 - https://github.com/ethereum/EIPs/issues/20
 //
-
+// ----------------------------------------------------------------------------
 contract ERC20Token is Owned {
     uint256 _totalSupply = 0;
 
@@ -146,7 +146,9 @@ contract ERC20Token is Owned {
 
 // ----------------------------------------------------------------------------
 //
-
+// Accept funds and mint tokens
+//
+// ----------------------------------------------------------------------------
 contract SikobaContinuousSale is ERC20Token {
 
     // ------------------------------------------------------------------------
@@ -168,49 +170,46 @@ contract SikobaContinuousSale is ERC20Token {
 
     // maximum funding in US$
     uint256 public constant MAX_USD_FUNDING = 400000;
+
+    // Minimum contribution amount is 0.01 ETH
+    uint256 public constant MIN_CONTRIBUTION = 10**16;
+
     uint256 public totalUsdFunding;
     bool public maxUsdFundingReached = false;
     uint256 public usdPerHundredETH;
     uint256 public softEndDate = END_DATE;
-    
+
     // status variables
     bool public mintingCompleted = false;
     bool public fundingPaused = false;
-    
-    uint256 public deployedAt;
 
     // ------------------------------------------------------------------------
-    // event logging
+    // Events
     // ------------------------------------------------------------------------
-    
     event UsdRateSet(uint256 timestamp, uint256 value);
-
     event TokensBought(address indexed buyer, uint256 ethers, uint256 tokens, 
           uint256 newTotalSupply, uint256 units);
-          
-    // ------------------------------------------------------------------------
-    // registers time of deployment
-    // ------------------------------------------------------------------------
 
+    // ------------------------------------------------------------------------
+    // Constructor - register time of deployment
+    // ------------------------------------------------------------------------
     function SikobaContinuousSale() {
-        deployedAt = now;
     }
 
     // ------------------------------------------------------------------------
     // Owner settings
     // ------------------------------------------------------------------------
-    
     function setUsdPerHundredETH(uint256 value) external onlyOwner {
-      usdPerHundredETH = value; // if coinmarketcap $131.14 then send 13114
-      UsdRateSet(now, value);
+        usdPerHundredETH = value; // if coinmarketcap $131.14 then send 13114
+        UsdRateSet(now, value);
     }
-    
+
     function pause() external onlyOwner {
-      fundingPaused = true;
+        fundingPaused = true;
     }
 
     function restart() external onlyOwner {
-      fundingPaused = false;
+        fundingPaused = false;
     }
 
     function setMintingCompleted() onlyOwner {
@@ -234,7 +233,7 @@ contract SikobaContinuousSale is ERC20Token {
     // ------------------------------------------------------------------------
 
     function unitsPerEth() constant returns (uint256) {
-      return START_SKO1_UNITS * 10**18 - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 * (now - START_DATE) / (END_DATE - START_DATE);
+        return START_SKO1_UNITS * 10**18 - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 * (now - START_DATE) / (END_DATE - START_DATE);
     }
 
     function () payable {
@@ -242,42 +241,35 @@ contract SikobaContinuousSale is ERC20Token {
     }
 
     function buyTokens() payable {
-    
       // check conditions
-      //
       if (fundingPaused) throw;
       if (now < START_DATE) throw;
       if (now > END_DATE) throw;
       if (now > softEndDate) throw;
-      if (msg.value < 10**16) throw; // at least ETH 0.01
+      if (msg.value < MIN_CONTRIBUTION) throw; // at least ETH 0.01
 
       // issue tokens
-      //      
       uint256 tokens = msg.value * unitsPerEth() / 10**18;
       _totalSupply += tokens;
       balances[msg.sender] += tokens;
       Transfer(0, this, tokens);
       Transfer(this, msg.sender, tokens);
-      
-      // appriximative funding in USD
-      //
+
+      // approximative funding in USD
       totalUsdFunding += msg.value * usdPerHundredETH / 10**20;
       if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
         softEndDate = now + 24*60*60;
         maxUsdFundingReached = true;
       }
-      
+
       // log event
-      //
       TokensBought(msg.sender, msg.value, tokens, _totalSupply, unitsPerEth());
-      
+
       // send balance to owner
-      //
       owner.transfer(this.balance);
     }
-    
+
     function ownerWithdraw() external onlyOwner {
         if (!owner.send(this.balance)) throw;
     }
 }
- 
