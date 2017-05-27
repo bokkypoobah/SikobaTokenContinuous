@@ -201,7 +201,7 @@ function printTokenContractDynamicDetails() {
     console.log("RESULT: token.unitsPerEth/token.MULT_FACTOR=" + contract.unitsPerEth().div(contract.MULT_FACTOR()));
     console.log("RESULT: token.totalUsdFunding=" + contract.totalUsdFunding());
     console.log("RESULT: token.maxUsdFundingReached=" + contract.maxUsdFundingReached());
-    console.log("RESULT: token.usdPerHundredETH=" + contract.usdPerHundredETH());
+    console.log("RESULT: token.usdPerHundredEth=" + contract.usdPerHundredEth());
     var softEndDate = contract.softEndDate();
     console.log("RESULT: token.softEndDate=" + softEndDate + " " + new Date(softEndDate * 1000).toUTCString());
     console.log("RESULT: token.ethersContributed=" + contract.ethersContributed().shift(-18));
@@ -236,7 +236,7 @@ function printTokenContractDynamicDetails() {
     var usdRateSetEvent = contract.UsdRateSet({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     usdRateSetEvent.watch(function (error, result) {
-      console.log("RESULT: UsdRateSet Event " + i++ + ": from=" + result.args.value + " " + result.blockNumber);
+      console.log("RESULT: UsdRateSet Event " + i++ + ": _usdPerHundredEth=" + result.args._usdPerHundredEth + " " + result.blockNumber);
     });
     usdRateSetEvent.stopWatching();
 

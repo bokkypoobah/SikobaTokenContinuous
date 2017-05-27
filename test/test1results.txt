@@ -8,22 +8,22 @@
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000            0 Account #6
 
 Test 1.1 Deploy Token Contract
-tokenAddress=0xae62c7f15d5b7181f1eb7f436e80f61e877b364f gas=4000000 gasUsed=1233776 costETH=0.02467552 costUSD=3.138726144 @ ETH/USD=127.2 gasPrice=20000000000 block=2987 txId=0x2f32eb45ed6e0c2afd7e7dbcd9c7eabcccc176ed921e0c919482d91bfc7ff171
+tokenAddress=0x171367f4d427567dab0dc38133c5dc3aad7001a7 gas=4000000 gasUsed=1233712 costETH=0.02467424 costUSD=3.138563328 @ ETH/USD=127.2 gasPrice=20000000000 block=3059 txId=0x0f55b3801afdd1a8afc0038ddccde20dccdd9be7d612b3494f0cc3a89d8812cf
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       20.024675520000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.024675520000000000           0.000000000000000000 Account #1 - Token Owner
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       20.024674240000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.024674240000000000           0.000000000000000000 Account #1 - Token Owner
  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2
  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6
- 8 0xae62c7f15d5b7181f1eb7f436e80f61e877b364f        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x171367f4d427567dab0dc38133c5dc3aad7001a7        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.1 Deploy Token Contract
 token.symbol=SKO1
 token.name=Sikoba Continuous Sale
 token.decimals=18
-token.START_DATE=1495920202 Sat, 27 May 2017 21:23:22 UTC
-token.END_DATE=1495920503 Sat, 27 May 2017 21:28:23 UTC
+token.START_DATE=1495920744 Sat, 27 May 2017 21:32:24 UTC
+token.END_DATE=1495921045 Sat, 27 May 2017 21:37:25 UTC
 token.START_SKO1_UNITS=1650
 token.END_SKO1_UNITS=1200
 token.MULT_FACTOR=1000000000
@@ -36,26 +36,26 @@ token.newOwner=0x0000000000000000000000000000000000000000
 token.mintingCompleted=false
 token.fundingPaused=false
 token.totalSupply=0
-token.unitsPerEth/token.MULT_FACTOR=1603.65448505
+token.unitsPerEth/token.MULT_FACTOR=1633.554817276
 token.totalUsdFunding=0
 token.maxUsdFundingReached=false
-token.usdPerHundredETH=15178
-token.softEndDate=1495920503 Sat, 27 May 2017 21:28:23 UTC
+token.usdPerHundredEth=15178
+token.softEndDate=1495921045 Sat, 27 May 2017 21:37:25 UTC
 token.ethersContributed=0
-UsdRateSet Event 0: from=15178 2987
+UsdRateSet Event 0: _usdPerHundredEth=15178 3059
 
-Waiting until funding period is active at 1495920202 Sun, 28 May 2017 07:23:22 AEST currentDate=Sun, 28 May 2017 07:23:56 AEST
-Waited until funding period is active at 1495920202 Sun, 28 May 2017 07:23:22 AEST currentDate=Sun, 28 May 2017 07:23:56 AEST
+Waiting until funding period is active at 1495920744 Sun, 28 May 2017 07:32:24 AEST currentDate=Sun, 28 May 2017 07:32:39 AEST
+Waited until funding period is active at 1495920744 Sun, 28 May 2017 07:32:24 AEST currentDate=Sun, 28 May 2017 07:32:39 AEST
 Test 1.3 Send ETH account2 1; account3 100; account4 0.001
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       35.036385800000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      100.975324480000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -1.002305140000000000        1582.724252492000000000 Account #2
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.009405140000000000      158272.425249200000000000 Account #3
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.036384520000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      100.975325760000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -1.002305140000000000        1612.624584718000000000 Account #2
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.009405140000000000      161262.458471800000000000 Account #3
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6
- 8 0xae62c7f15d5b7181f1eb7f436e80f61e877b364f        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x171367f4d427567dab0dc38133c5dc3aad7001a7        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.3 Send ETH account2 1; account3 100; account4 0.001 - account2 1 ETH
 PASS Test 1.3 Send ETH account2 1; account3 100; account4 0.001 - account3 100 ETH
 PASS Test 1.3 Send ETH account2 1; account3 100; account4 0.001 - account4 0.001 ETH (under min contrib)
@@ -63,11 +63,11 @@ token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.mintingCompleted=false
 token.fundingPaused=false
-token.totalSupply=159855.149501692
-token.unitsPerEth/token.MULT_FACTOR=1582.724252492
+token.totalSupply=162875.083056518
+token.unitsPerEth/token.MULT_FACTOR=1612.624584718
 token.totalUsdFunding=15329
 token.maxUsdFundingReached=false
-token.usdPerHundredETH=15178
-token.softEndDate=1495920503 Sat, 27 May 2017 21:28:23 UTC
+token.usdPerHundredEth=15178
+token.softEndDate=1495921045 Sat, 27 May 2017 21:37:25 UTC
 token.ethersContributed=101
 

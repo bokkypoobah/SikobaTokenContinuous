@@ -201,7 +201,7 @@ contract SikobaContinuousSale is ERC20Token {
 
     uint256 public totalUsdFunding;
     bool public maxUsdFundingReached = false;
-    uint256 public usdPerHundredETH;
+    uint256 public usdPerHundredEth;
     uint256 public softEndDate = END_DATE;
 
     // Ethers contributed and withdrawn
@@ -217,24 +217,24 @@ contract SikobaContinuousSale is ERC20Token {
     // ------------------------------------------------------------------------
     // Events
     // ------------------------------------------------------------------------
-    event UsdRateSet(uint256 value);
+    event UsdRateSet(uint256 _usdPerHundredEth);
     event TokensBought(address indexed buyer, uint256 ethers, uint256 tokens, 
           uint256 newTotalSupply, uint256 unitsPerEth);
 
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function SikobaContinuousSale(uint256 _usdPerHundredETH) {
-        setUsdPerHundredETH(_usdPerHundredETH);
+    function SikobaContinuousSale(uint256 _usdPerHundredEth) {
+        setUsdPerHundredEth(_usdPerHundredEth);
     }
 
     // ------------------------------------------------------------------------
     // Owner sets the USD rate per 100 ETH - used to determine the funding cap
     // If coinmarketcap $131.14 then set 13114
     // ------------------------------------------------------------------------
-    function setUsdPerHundredETH(uint256 _usdPerHundredETH) onlyOwner {
-        usdPerHundredETH = _usdPerHundredETH;
-        UsdRateSet(_usdPerHundredETH);
+    function setUsdPerHundredEth(uint256 _usdPerHundredEth) onlyOwner {
+        usdPerHundredEth = _usdPerHundredEth;
+        UsdRateSet(_usdPerHundredEth);
     }
 
     // ------------------------------------------------------------------------
@@ -280,7 +280,7 @@ contract SikobaContinuousSale is ERC20Token {
         Transfer(this, msg.sender, tokens);
 
         // approximative funding in USD
-        totalUsdFunding += msg.value * usdPerHundredETH / 10**20;
+        totalUsdFunding += msg.value * usdPerHundredEth / 10**20;
         if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
             softEndDate = now + 24*60*60;
             maxUsdFundingReached = true;
