@@ -214,7 +214,7 @@ contract SikobaContinuousSale is ERC20Token {
     // ------------------------------------------------------------------------
     // Events
     // ------------------------------------------------------------------------
-    event UsdRateSet(uint256 timestamp, uint256 value);
+    event UsdRateSet(uint256 value);
     event TokensBought(address indexed buyer, uint256 ethers, uint256 tokens, 
           uint256 newTotalSupply, uint256 unitsPerEth);
 
@@ -229,7 +229,7 @@ contract SikobaContinuousSale is ERC20Token {
     // ------------------------------------------------------------------------
     function setUsdPerHundredETH(uint256 value) external onlyOwner {
         usdPerHundredETH = value; // if coinmarketcap $131.14 then send 13114
-        UsdRateSet(now, value);
+        UsdRateSet(value);
     }
 
     // ------------------------------------------------------------------------

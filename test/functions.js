@@ -213,13 +213,6 @@ function printTokenContractDynamicDetails() {
     });
     ownershipTransferredEvent.stopWatching();
 
-    var tokensPerEtherUpdatedEvent = contract.TokensPerEtherUpdated({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
-    i = 0;
-    tokensPerEtherUpdatedEvent.watch(function (error, result) {
-      console.log("RESULT: TokensPerEtherUpdated Event " + i++ + ": from=" + result.args.tokensPerEther + " " + result.blockNumber);
-    });
-    tokensPerEtherUpdatedEvent.stopWatching();
-
     var approvalEvent = contract.Approval({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     approvalEvent.watch(function (error, result) {
@@ -235,6 +228,24 @@ function printTokenContractDynamicDetails() {
         " value=" + result.args.value.shift(-decimals) + " block=" + result.blockNumber);
     });
     transferEvent.stopWatching();
+    
+    var usdRateSetEvent = contract.UsdRateSet({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    usdRateSetEvent.watch(function (error, result) {
+      console.log("RESULT: UsdRateSet Event " + i++ + ": from=" + result.args.value + " " + result.blockNumber);
+    });
+    usdRateSetEvent.stopWatching();
+
+    var tokensBoughtEvent = contract.TokensBought({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
+    i = 0;
+    tokensBoughtEvent.watch(function (error, result) {
+      console.log("RESULT: TokensBought Event " + i++ + ": buyer=" + result.args.buyer + " " + 
+        " ethers=" + result.args.ethers.shift(-18) + " tokens=" + result.args.tokens.shift(-decimals) + 
+        " newTotalSupply=" + results.args.newTotalSupply.shift(-decimals) + 
+        " unitsPerEth=" + unitsPerEth + " " + result.blockNumber);
+    });
+    tokensBoughtEvent.stopWatching();
+
     dynamicDetailsFromBlock = latestBlock + 1;
   }
 }

@@ -51,8 +51,8 @@ printf "ENDTIME         = '$ENDTIME' '$ENDTIME_S'\n"
 
 # --- Modify dates ---
 # PRESALE_START_DATE = +1m
-# `perl -pi -e "s/START_DATE = 1496275200;/START_DATE = $STARTTIME; \/\/ $STARTTIME_S/" $TOKENTEMPSOL`
-# `perl -pi -e "s/END_DATE = 1509494399;/END_DATE = $ENDTIME; \/\/ $ENDTIME_S/" $TOKENTEMPSOL`
+`perl -pi -e "s/START_DATE = 1496275200;/START_DATE = $STARTTIME; \/\/ $STARTTIME_S/" $TOKENTEMPSOL`
+`perl -pi -e "s/END_DATE = 1509494399;/END_DATE = $ENDTIME; \/\/ $ENDTIME_S/" $TOKENTEMPSOL`
 
 DIFFS=`diff $TOKENSOL $TOKENTEMPSOL`
 echo "--- Differences ---"
@@ -75,7 +75,7 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.3 Deploy Token Contract";
+var testMessage = "Test 1.1 Deploy Token Contract";
 console.log("RESULT: " + testMessage);
 var tokenContract = web3.eth.contract(tokenAbi);
 console.log(JSON.stringify(tokenContract));
@@ -104,6 +104,29 @@ printTokenContractStaticDetails();
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 console.log(JSON.stringify(token));
+
+var skipFundingBeforeStartTest = "$MODE" == "dev" ? true : false;
+
+if (!skipFundingBeforeStartTest) {
+  // -----------------------------------------------------------------------------
+  var testMessage = "Test 1.2 Send ETH before funding period starts - expect to fail";
+  console.log("RESULT: " + testMessage);
+  var tx1_2 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("123.456789", "ether")});
+  while (txpool.status.pending > 0) {
+  }
+  printBalances();
+  passIfGasEqualsGasUsed(tx1_2, testMessage);
+  printTokenContractDynamicDetails();
+  console.log("RESULT: ");
+}
+
+var startDateTime = token.START_DATE();
+var startDate = new Date(startDateTime * 1000);
+console.log("RESULT: Waiting until funding period is active at " + startDateTime + " " + startDate + " currentDate=" + new Date());
+while ((new Date()).getTime() < startDate.getTime()) {
+}
+console.log("RESULT: Waited until funding period is active at " + startDateTime + " " + startDate + " currentDate=" + new Date());
+
 
 exit;
 
