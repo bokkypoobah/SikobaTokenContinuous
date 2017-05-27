@@ -236,9 +236,12 @@ contract SikobaContinuousSale is ERC20Token {
     // Calculate the number of tokens per ETH contributed
     // Linear (START_DATE, START_SKO1_UNITS) -> (END_DATE, END_SKO1_UNITS)
     // ------------------------------------------------------------------------
-    function unitsPerEth(uint256 at) constant returns (uint256) {
-        return START_SKO1_UNITS * 10**18 
-            + (END_SKO1_UNITS - START_SKO1_UNITS) * 10**18 
+    function unitsPerEth() constant returns (uint256) {
+        return unitsPerEthAt(now);
+    }
+    function unitsPerEthAt(uint256 at) constant returns (uint256) {
+        return START_SKO1_UNITS * 10**18
+            - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 
             * (at - START_DATE) / (END_DATE - START_DATE);
     }
 
@@ -258,7 +261,7 @@ contract SikobaContinuousSale is ERC20Token {
         if (msg.value < MIN_CONTRIBUTION) throw; // at least ETH 0.01
 
         // issue tokens
-        uint256 _unitsPerEth = unitsPerEth(now);
+        uint256 _unitsPerEth = unitsPerEth();
         uint256 tokens = msg.value * _unitsPerEth / 10**18;
         _totalSupply += tokens;
         balances[msg.sender] += tokens;
