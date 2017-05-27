@@ -1,0 +1,41 @@
+ # Account                                             EtherBalanceChange                          Token Name
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       20.000000000000000000            0 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000            0 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000            0 Account #2
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000            0 Account #3
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000            0 Account #4
+ 6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000            0 Account #5
+ 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000            0 Account #6
+
+Test 1.3 Deploy Token Contract
+tokenAddress=0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff gas=4000000 gasUsed=1165875 costETH=0.0233175 costUSD=2.965986 @ ETH/USD=127.2 gasPrice=20000000000 block=599 txId=0x3a4c44e99c22901a9f9b8cea6d99ceb64cb37251a444a51e54411b8b07437166
+ # Account                                             EtherBalanceChange                          Token Name
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.023317500000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.023317500000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3
+ 5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4
+ 6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5
+ 7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6
+ 8 0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff        0.000000000000000000           0.000000000000000000 TOKEN
+PASS Test 1.3 Deploy Token Contract
+token.symbol=SKO1
+token.name=Sikoba Continuous Sale
+token.decimals=18
+token.START_DATE=1496275200 Thu, 01 Jun 2017 00:00:00 UTC
+token.END_DATE=1509494399 Tue, 31 Oct 2017 23:59:59 UTC
+token.START_SKO1_UNITS=1650
+token.END_SKO1_UNITS=1200
+token.MAX_USD_FUNDING=400000
+token.MIN_CONTRIBUTION=0.01
+token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
+token.newOwner=0x0000000000000000000000000000000000000000
+token.mintingCompleted=false
+token.fundingPaused=false
+token.totalSupply=0
+token.totalUsdFunding=0
+token.maxUsdFundingReached=false
+token.usdPerHundredETH=0
+token.softEndDate=1509494399 Tue, 31 Oct 2017 23:59:59 UTC
+token.ethersContributed=0
+
