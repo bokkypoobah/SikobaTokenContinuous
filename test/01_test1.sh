@@ -81,7 +81,8 @@ var tokenContract = web3.eth.contract(tokenAbi);
 console.log(JSON.stringify(tokenContract));
 var tokenTx = null;
 var tokenAddress = null;
-var token = tokenContract.new({from: tokenOwnerAccount, data: tokenBin, gas: 4000000},
+var usdPerHundredETH = 15178;
+var token = tokenContract.new(usdPerHundredETH, {from: tokenOwnerAccount, data: tokenBin, gas: 4000000},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {

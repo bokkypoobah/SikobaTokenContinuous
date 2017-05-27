@@ -224,15 +224,17 @@ contract SikobaContinuousSale is ERC20Token {
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function SikobaContinuousSale() {
+    function SikobaContinuousSale(uint256 _usdPerHundredETH) {
+        setUsdPerHundredETH(_usdPerHundredETH);
     }
 
     // ------------------------------------------------------------------------
     // Owner sets the USD rate per 100 ETH - used to determine the funding cap
+    // If coinmarketcap $131.14 then set 13114
     // ------------------------------------------------------------------------
-    function setUsdPerHundredETH(uint256 value) external onlyOwner {
-        usdPerHundredETH = value; // if coinmarketcap $131.14 then send 13114
-        UsdRateSet(value);
+    function setUsdPerHundredETH(uint256 _usdPerHundredETH) onlyOwner {
+        usdPerHundredETH = _usdPerHundredETH;
+        UsdRateSet(_usdPerHundredETH);
     }
 
     // ------------------------------------------------------------------------
