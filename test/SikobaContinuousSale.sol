@@ -184,10 +184,10 @@ contract SikobaContinuousSale is ERC20Token {
     uint8 public constant decimals = 18;
 
     // Thursday, 01-Jun-17 00:00:00 UTC
-    uint256 public constant START_DATE = 1495901372; // Sat 27 May 2017 16:09:32 UTC
+    uint256 public constant START_DATE = 1495919370; // Sat 27 May 2017 21:09:30 UTC
 
     // Tuesday, 31-Oct-17 23:59:59 UTC
-    uint256 public constant END_DATE = 1495901612; // Sat 27 May 2017 16:13:32 UTC
+    uint256 public constant END_DATE = 1495919671; // Sat 27 May 2017 21:14:31 UTC
 
     // number of SKO1 units per ETH at beginning and end
     uint256 public constant START_SKO1_UNITS = 1650;
@@ -210,6 +210,9 @@ contract SikobaContinuousSale is ERC20Token {
     // status variables
     bool public mintingCompleted = false;
     bool public fundingPaused = false;
+
+    // Multiplication factor for extra integer multiplication precision
+    uint256 public constant MULT_FACTOR = 10**9;
 
     // ------------------------------------------------------------------------
     // Events
@@ -241,13 +244,13 @@ contract SikobaContinuousSale is ERC20Token {
     }
     function unitsPerEthAt(uint256 at) constant returns (uint256) {
         if (at < START_DATE) {
-            return START_SKO1_UNITS * 10**18;
+            return START_SKO1_UNITS * MULT_FACTOR;
         } else if (at > END_DATE) {
-            return END_SKO1_UNITS * 10**18;
+            return END_SKO1_UNITS * MULT_FACTOR;
         } else {
-            return START_SKO1_UNITS * 10**18
-                - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 
-                * (at - START_DATE) / (END_DATE - START_DATE);
+            return START_SKO1_UNITS * MULT_FACTOR
+                - ((START_SKO1_UNITS - END_SKO1_UNITS) * MULT_FACTOR 
+                   * (at - START_DATE)) / (END_DATE - START_DATE);
         }
     }
 
@@ -268,7 +271,7 @@ contract SikobaContinuousSale is ERC20Token {
 
         // issue tokens
         uint256 _unitsPerEth = unitsPerEth();
-        uint256 tokens = msg.value * _unitsPerEth / 10**18;
+        uint256 tokens = msg.value * _unitsPerEth / MULT_FACTOR;
         _totalSupply += tokens;
         balances[msg.sender] += tokens;
         Transfer(0, this, tokens);

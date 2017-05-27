@@ -29,7 +29,7 @@ else
   STARTTIME=`echo "$CURRENTTIME+60" | bc`
 fi
 STARTTIME_S=`date -r $STARTTIME -u`
-ENDTIME=`echo "$CURRENTTIME+60*5" | bc`
+ENDTIME=`echo "$CURRENTTIME+60*5+1" | bc`
 ENDTIME_S=`date -r $ENDTIME -u`
 
 printf "MODE            = '$MODE'\n"

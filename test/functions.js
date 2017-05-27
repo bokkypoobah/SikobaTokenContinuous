@@ -180,8 +180,9 @@ function printTokenContractStaticDetails() {
     console.log("RESULT: token.END_DATE=" + endDate + " " + new Date(endDate * 1000).toUTCString());
     console.log("RESULT: token.START_SKO1_UNITS=" + contract.START_SKO1_UNITS());
     console.log("RESULT: token.END_SKO1_UNITS=" + contract.END_SKO1_UNITS());
-    console.log("RESULT: token.unitsPerEthAt(START_DATE)/1e18=" + contract.unitsPerEthAt(contract.START_DATE()).shift(-18));
-    console.log("RESULT: token.unitsPerEthAt(END_DATE)/1e18=" + contract.unitsPerEthAt(contract.END_DATE()).shift(-18));
+    console.log("RESULT: token.MULT_FACTOR=" + contract.MULT_FACTOR());
+    console.log("RESULT: token.unitsPerEthAt(START_DATE)/token.MULT_FACTOR=" + contract.unitsPerEthAt(contract.START_DATE()).div(contract.MULT_FACTOR()));
+    console.log("RESULT: token.unitsPerEthAt(END_DATE)/token.MULT_FACTOR=" + contract.unitsPerEthAt(contract.END_DATE()).div(contract.MULT_FACTOR()));
     console.log("RESULT: token.MAX_USD_FUNDING=" + contract.MAX_USD_FUNDING());
     console.log("RESULT: token.MIN_CONTRIBUTION=" + contract.MIN_CONTRIBUTION().shift(-18));
   }
@@ -197,7 +198,7 @@ function printTokenContractDynamicDetails() {
     console.log("RESULT: token.mintingCompleted=" + contract.mintingCompleted());
     console.log("RESULT: token.fundingPaused=" + contract.fundingPaused());
     console.log("RESULT: token.totalSupply=" + contract.totalSupply().shift(-decimals));
-    console.log("RESULT: token.unitsPerEth/1e18=" + contract.unitsPerEth().shift(-18));
+    console.log("RESULT: token.unitsPerEth/token.MULT_FACTOR=" + contract.unitsPerEth().div(contract.MULT_FACTOR()));
     console.log("RESULT: token.totalUsdFunding=" + contract.totalUsdFunding());
     console.log("RESULT: token.maxUsdFundingReached=" + contract.maxUsdFundingReached());
     console.log("RESULT: token.usdPerHundredETH=" + contract.usdPerHundredETH());
