@@ -13,7 +13,9 @@ pragma solidity ^0.4.8;
 
 
 // ----------------------------------------------------------------------------
+//
 // Owned contract
+//
 // ----------------------------------------------------------------------------
 contract Owned {
     address public owner;
@@ -191,7 +193,7 @@ contract SikobaContinuousSale is ERC20Token {
     uint256 public constant START_SKO1_UNITS = 1650;
     uint256 public constant END_SKO1_UNITS = 1200;
 
-    // maximum funding in US$
+    // maximum funding in USD
     uint256 public constant MAX_USD_FUNDING = 400000;
 
     // Minimum contribution amount is 0.01 ETH
@@ -202,6 +204,9 @@ contract SikobaContinuousSale is ERC20Token {
     uint256 public usdPerHundredETH;
     uint256 public softEndDate = END_DATE;
 
+    // Ethers contributed and withdrawn
+    uint256 public ethersContributed = 0;
+
     // status variables
     bool public mintingCompleted = false;
     bool public fundingPaused = false;
@@ -211,54 +216,35 @@ contract SikobaContinuousSale is ERC20Token {
     // ------------------------------------------------------------------------
     event UsdRateSet(uint256 timestamp, uint256 value);
     event TokensBought(address indexed buyer, uint256 ethers, uint256 tokens, 
-          uint256 newTotalSupply, uint256 units);
+          uint256 newTotalSupply, uint256 unitsPerEth);
 
     // ------------------------------------------------------------------------
-    // Constructor - register time of deployment
+    // Constructor
     // ------------------------------------------------------------------------
     function SikobaContinuousSale() {
     }
 
     // ------------------------------------------------------------------------
-    // Owner settings
+    // Owner sets the USD rate per 100 ETH - used to determine the funding cap
     // ------------------------------------------------------------------------
     function setUsdPerHundredETH(uint256 value) external onlyOwner {
         usdPerHundredETH = value; // if coinmarketcap $131.14 then send 13114
         UsdRateSet(now, value);
     }
 
-    function pause() external onlyOwner {
-        fundingPaused = true;
-    }
-
-    function restart() external onlyOwner {
-        fundingPaused = false;
-    }
-
-    function setMintingCompleted() onlyOwner {
-        mintingCompleted = true;
-    }
-
-
     // ------------------------------------------------------------------------
-    // Owner can mint tokens
+    // Calculate the number of tokens per ETH contributed
+    // Linear (START_DATE, START_SKO1_UNITS) -> (END_DATE, END_SKO1_UNITS)
     // ------------------------------------------------------------------------
-    function mint(address participant, uint256 tokens) onlyOwner {
-        if (mintingCompleted) throw;
-        balances[participant] += tokens;
-        _totalSupply += tokens;
-        Transfer(0, this, tokens);
-        Transfer(this, participant, tokens);
+    function unitsPerEth(uint256 at) constant returns (uint256) {
+        return START_SKO1_UNITS * 10**18 
+            + (END_SKO1_UNITS - START_SKO1_UNITS) * 10**18 
+            * (at - START_DATE) / (END_DATE - START_DATE);
     }
 
     // ------------------------------------------------------------------------
     // Buy tokens from the contract
     // ------------------------------------------------------------------------
-
-    function unitsPerEth() constant returns (uint256) {
-        return START_SKO1_UNITS * 10**18 - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 * (now - START_DATE) / (END_DATE - START_DATE);
-    }
-
     function () payable {
         buyTokens();
     }
@@ -272,7 +258,8 @@ contract SikobaContinuousSale is ERC20Token {
         if (msg.value < MIN_CONTRIBUTION) throw; // at least ETH 0.01
 
         // issue tokens
-        uint256 tokens = msg.value * unitsPerEth() / 10**18;
+        uint256 _unitsPerEth = unitsPerEth(now);
+        uint256 tokens = msg.value * _unitsPerEth / 10**18;
         _totalSupply += tokens;
         balances[msg.sender] += tokens;
         Transfer(0, this, tokens);
@@ -285,14 +272,39 @@ contract SikobaContinuousSale is ERC20Token {
             maxUsdFundingReached = true;
         }
 
-        // log event
-        TokensBought(msg.sender, msg.value, tokens, _totalSupply, unitsPerEth());
+        ethersContributed += msg.value;
+        TokensBought(msg.sender, msg.value, tokens, _totalSupply, _unitsPerEth);
 
         // send balance to owner
         owner.transfer(this.balance);
     }
 
-    function ownerWithdraw() external onlyOwner {
-        if (!owner.send(this.balance)) throw;
+    // ------------------------------------------------------------------------
+    // Pause and restart funding
+    // ------------------------------------------------------------------------
+    function pause() external onlyOwner {
+        fundingPaused = true;
+    }
+
+    function restart() external onlyOwner {
+        fundingPaused = false;
+    }
+
+
+    // ------------------------------------------------------------------------
+    // Owner can mint tokens for contributions made outside the ETH contributed
+    // to this token contract. This can only occur until mintingCompleted is
+    // true
+    // ------------------------------------------------------------------------
+    function mint(address participant, uint256 tokens) onlyOwner {
+        if (mintingCompleted) throw;
+        balances[participant] += tokens;
+        _totalSupply += tokens;
+        Transfer(0, this, tokens);
+        Transfer(this, participant, tokens);
+    }
+
+    function setMintingCompleted() onlyOwner {
+        mintingCompleted = true;
     }
 }
