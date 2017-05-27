@@ -12,7 +12,10 @@ pragma solidity ^0.4.8;
 // ----------------------------------------------------------------------------
 
 
- contract Owned {
+// ----------------------------------------------------------------------------
+// Owned contract
+// ----------------------------------------------------------------------------
+contract Owned {
     address public owner;
     address public newOwner;
     event OwnershipTransferred(address indexed _from, address indexed _to);
@@ -41,10 +44,31 @@ pragma solidity ^0.4.8;
 
 // ----------------------------------------------------------------------------
 //
-// ERC Token Standard #20 - https://github.com/ethereum/EIPs/issues/20
+// ERC Token Standard #20 Interface
+// https://github.com/ethereum/EIPs/issues/20
 //
 // ----------------------------------------------------------------------------
-contract ERC20Token is Owned {
+contract ERC20Interface {
+    function totalSupply() constant returns (uint256 totalSupply);
+    function balanceOf(address _owner) constant returns (uint256 balance);
+    function transfer(address _to, uint256 _value) returns (bool success);
+    function transferFrom(address _from, address _to, uint256 _value) 
+        returns (bool success);
+    function approve(address _spender, uint256 _value) returns (bool success);
+    function allowance(address _owner, address _spender) constant 
+        returns (uint256 remaining);
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
+    event Approval(address indexed _owner, address indexed _spender, 
+        uint256 _value);
+}
+
+
+// ----------------------------------------------------------------------------
+//
+// ERC Token Standard #20
+//
+// ----------------------------------------------------------------------------
+contract ERC20Token is Owned, ERC20Interface {
     uint256 _totalSupply = 0;
 
     // ------------------------------------------------------------------------
@@ -74,7 +98,10 @@ contract ERC20Token is Owned {
     // ------------------------------------------------------------------------
     // Transfer the balance from owner's account to another account
     // ------------------------------------------------------------------------
-    function transfer(address _to, uint256 _amount) returns (bool success) {
+    function transfer(
+        address _to,
+        uint256 _amount
+    ) returns (bool success) {
         if (balances[msg.sender] >= _amount             // User has balance
             && _amount > 0                              // Non-zero transfer
             && balances[_to] + _amount > balances[_to]  // Overflow check
@@ -137,10 +164,6 @@ contract ERC20Token is Owned {
     ) constant returns (uint256 remaining) {
         return allowed[_owner][_spender];
     }
-
-    event Transfer(address indexed _from, address indexed _to, uint256 _value);
-    event Approval(address indexed _owner, address indexed _spender,
-        uint256 _value);
 }
 
 
@@ -241,32 +264,32 @@ contract SikobaContinuousSale is ERC20Token {
     }
 
     function buyTokens() payable {
-      // check conditions
-      if (fundingPaused) throw;
-      if (now < START_DATE) throw;
-      if (now > END_DATE) throw;
-      if (now > softEndDate) throw;
-      if (msg.value < MIN_CONTRIBUTION) throw; // at least ETH 0.01
+        // check conditions
+        if (fundingPaused) throw;
+        if (now < START_DATE) throw;
+        if (now > END_DATE) throw;
+        if (now > softEndDate) throw;
+        if (msg.value < MIN_CONTRIBUTION) throw; // at least ETH 0.01
 
-      // issue tokens
-      uint256 tokens = msg.value * unitsPerEth() / 10**18;
-      _totalSupply += tokens;
-      balances[msg.sender] += tokens;
-      Transfer(0, this, tokens);
-      Transfer(this, msg.sender, tokens);
+        // issue tokens
+        uint256 tokens = msg.value * unitsPerEth() / 10**18;
+        _totalSupply += tokens;
+        balances[msg.sender] += tokens;
+        Transfer(0, this, tokens);
+        Transfer(this, msg.sender, tokens);
 
-      // approximative funding in USD
-      totalUsdFunding += msg.value * usdPerHundredETH / 10**20;
-      if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
-        softEndDate = now + 24*60*60;
-        maxUsdFundingReached = true;
-      }
+        // approximative funding in USD
+        totalUsdFunding += msg.value * usdPerHundredETH / 10**20;
+        if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
+            softEndDate = now + 24*60*60;
+            maxUsdFundingReached = true;
+        }
 
-      // log event
-      TokensBought(msg.sender, msg.value, tokens, _totalSupply, unitsPerEth());
+        // log event
+        TokensBought(msg.sender, msg.value, tokens, _totalSupply, unitsPerEth());
 
-      // send balance to owner
-      owner.transfer(this.balance);
+        // send balance to owner
+        owner.transfer(this.balance);
     }
 
     function ownerWithdraw() external onlyOwner {
