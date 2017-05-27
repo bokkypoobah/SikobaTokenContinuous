@@ -211,6 +211,9 @@ contract SikobaContinuousSale is ERC20Token {
     bool public mintingCompleted = false;
     bool public fundingPaused = false;
 
+    // Multiplication factor for extra integer multiplication precision
+    uint256 public constant MULT_FACTOR = 10**9;
+
     // ------------------------------------------------------------------------
     // Events
     // ------------------------------------------------------------------------
@@ -241,13 +244,13 @@ contract SikobaContinuousSale is ERC20Token {
     }
     function unitsPerEthAt(uint256 at) constant returns (uint256) {
         if (at < START_DATE) {
-            return START_SKO1_UNITS * 10**18;
+            return START_SKO1_UNITS * MULT_FACTOR;
         } else if (at > END_DATE) {
-            return END_SKO1_UNITS * 10**18;
+            return END_SKO1_UNITS * MULT_FACTOR;
         } else {
-            return START_SKO1_UNITS * 10**18
-                - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 
-                * (at - START_DATE) / (END_DATE - START_DATE);
+            return START_SKO1_UNITS * MULT_FACTOR
+                - ((START_SKO1_UNITS - END_SKO1_UNITS) * MULT_FACTOR 
+                   * (at - START_DATE)) / (END_DATE - START_DATE);
         }
     }
 
@@ -268,7 +271,7 @@ contract SikobaContinuousSale is ERC20Token {
 
         // issue tokens
         uint256 _unitsPerEth = unitsPerEth();
-        uint256 tokens = msg.value * _unitsPerEth / 10**18;
+        uint256 tokens = msg.value * _unitsPerEth / MULT_FACTOR;
         _totalSupply += tokens;
         balances[msg.sender] += tokens;
         Transfer(0, this, tokens);
