@@ -184,10 +184,10 @@ contract SikobaContinuousSale is ERC20Token {
     uint8 public constant decimals = 18;
 
     // Thursday, 01-Jun-17 00:00:00 UTC
-    uint256 public constant START_DATE = 1495897119; // Sat 27 May 2017 14:58:39 UTC
+    uint256 public constant START_DATE = 1495900959; // Sat 27 May 2017 16:02:39 UTC
 
     // Tuesday, 31-Oct-17 23:59:59 UTC
-    uint256 public constant END_DATE = 1495897359; // Sat 27 May 2017 15:02:39 UTC
+    uint256 public constant END_DATE = 1495901199; // Sat 27 May 2017 16:06:39 UTC
 
     // number of SKO1 units per ETH at beginning and end
     uint256 public constant START_SKO1_UNITS = 1650;
@@ -236,9 +236,12 @@ contract SikobaContinuousSale is ERC20Token {
     // Calculate the number of tokens per ETH contributed
     // Linear (START_DATE, START_SKO1_UNITS) -> (END_DATE, END_SKO1_UNITS)
     // ------------------------------------------------------------------------
-    function unitsPerEth(uint256 at) constant returns (uint256) {
-        return START_SKO1_UNITS * 10**18 
-            + (END_SKO1_UNITS - START_SKO1_UNITS) * 10**18 
+    function unitsPerEth() constant returns (uint256) {
+        return unitsPerEthAt(now);
+    }
+    function unitsPerEthAt(uint256 at) constant returns (uint256) {
+        return START_SKO1_UNITS * 10**18
+            - (START_SKO1_UNITS - END_SKO1_UNITS) * 10**18 
             * (at - START_DATE) / (END_DATE - START_DATE);
     }
 
@@ -258,7 +261,7 @@ contract SikobaContinuousSale is ERC20Token {
         if (msg.value < MIN_CONTRIBUTION) throw; // at least ETH 0.01
 
         // issue tokens
-        uint256 _unitsPerEth = unitsPerEth(now);
+        uint256 _unitsPerEth = unitsPerEth();
         uint256 tokens = msg.value * _unitsPerEth / 10**18;
         _totalSupply += tokens;
         balances[msg.sender] += tokens;

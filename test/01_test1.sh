@@ -127,6 +127,31 @@ while ((new Date()).getTime() < startDate.getTime()) {
 }
 console.log("RESULT: Waited until funding period is active at " + startDateTime + " " + startDate + " currentDate=" + new Date());
 
+// -----------------------------------------------------------------------------
+var testMessage = "Test 1.3 Send ETH account2 1; account3 100; account4 0.001";
+console.log("RESULT: " + testMessage);
+var tx1_3_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("1", "ether")});
+var tx1_3_2 = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
+var tx1_3_3 = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("0.001", "ether")});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfGasEqualsGasUsed(tx1_3_1, testMessage + " - account2 1 ETH");
+failIfGasEqualsGasUsed(tx1_3_2, testMessage + " - account3 100 ETH");
+passIfGasEqualsGasUsed(tx1_3_3, testMessage + " - account4 0.001 ETH (under min contrib)");
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+
+if (false) {
+  var endDateTime = token.END_DATE();
+  var endDate = new Date(endDateTime * 1000);
+  console.log("RESULT: Waiting until funding period has ended at " + endDateTime + " " + endDate + " currentDate=" + new Date());
+  while ((new Date()).getTime() < endDate.getTime()) {
+  }
+  console.log("RESULT: Waited until funding period has ended at " + endDateTime + " " + endDate + " currentDate=" + new Date());
+}
 
 exit;
 
