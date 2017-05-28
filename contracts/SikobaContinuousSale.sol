@@ -319,4 +319,14 @@ contract SikobaContinuousSale is ERC20Token {
     function setMintingCompleted() onlyOwner {
         mintingCompleted = true;
     }
+
+    // ------------------------------------------------------------------------
+    // Transfer out any accidentally sent ERC20 tokens
+    // ------------------------------------------------------------------------
+    function transferAnyERC20Token(
+        address tokenAddress, 
+        uint256 amount
+    ) onlyOwner returns (bool success) {
+        return ERC20Interface(tokenAddress).transfer(owner, amount);
+    }
 }
