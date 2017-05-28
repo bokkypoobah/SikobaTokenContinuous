@@ -99,7 +99,7 @@ See [README.md](README.md).
 
 My comments in the following code are market in the lines beginning with `// NOTE: `.
 
-Following is the source code for [blob/08a9a73b46fd28e70c143e692244f2c2349cc263/contracts/SikobaContinuousSale.sol](blob/08a9a73b46fd28e70c143e692244f2c2349cc263/contracts/SikobaContinuousSale.sol): 
+Following is the source code for [../blob/06443ee649c3c02a5469bdfe26ab33e4ac8443c3/contracts/SikobaContinuousSale.sol](../blob/06443ee649c3c02a5469bdfe26ab33e4ac8443c3/contracts/SikobaContinuousSale.sol): 
 
 ```javascript
 pragma solidity ^0.4.8;
@@ -338,8 +338,8 @@ contract SikobaContinuousSale is ERC20Token {
     bool public fundingPaused = false;
 
     // Multiplication factor for extra integer multiplication precision
-    // NOTE: Ok. Could make it 10**18 if desired
-    uint256 public constant MULT_FACTOR = 10**9;
+    // NOTE: Ok
+    uint256 public constant MULT_FACTOR = 10**18;
 
     // ------------------------------------------------------------------------
     // Events

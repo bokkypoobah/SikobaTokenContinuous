@@ -184,10 +184,10 @@ contract SikobaContinuousSale is ERC20Token {
     uint8 public constant decimals = 18;
 
     // Thursday, 01-Jun-17 00:00:00 UTC
-    uint256 public constant START_DATE = 1495985641; // Sun 28 May 2017 15:34:01 UTC
+    uint256 public constant START_DATE = 1495987607; // Sun 28 May 2017 16:06:47 UTC
 
     // Tuesday, 31-Oct-17 23:59:59 UTC
-    uint256 public constant END_DATE = 1495986182; // Sun 28 May 2017 15:43:02 UTC
+    uint256 public constant END_DATE = 1495988148; // Sun 28 May 2017 16:15:48 UTC
 
     // Number of SKO1 units per ETH at beginning and end
     uint256 public constant START_SKO1_UNITS = 1650;
@@ -214,7 +214,7 @@ contract SikobaContinuousSale is ERC20Token {
     bool public fundingPaused = false;
 
     // Multiplication factor for extra integer multiplication precision
-    uint256 public constant MULT_FACTOR = 10**9;
+    uint256 public constant MULT_FACTOR = 10**18;
 
     // ------------------------------------------------------------------------
     // Events

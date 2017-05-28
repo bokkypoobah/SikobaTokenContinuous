@@ -1,5 +1,5 @@
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       10.000000000000000000            0 Account #0 - Miner
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        5.000000000000000000            0 Account #0 - Miner
  2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000            0 Account #1 - Token Owner
  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000            0 Account #2 - Purchased tokens
  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000            0 Account #3 - Purchased tokens
@@ -8,25 +8,25 @@
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000            0 Account #6
 
 Test 1.1 Deploy Token Contract
-tokenAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688 gas=4000000 gasUsed=1275380 costETH=0.0255076 costUSD=4.173936126 @ ETH/USD=163.635 gasPrice=20000000000 block=4 txId=0x43649e56e6f3b9023f5a0e0b29feeed2897f18a732916d6c4ac3f5eb55bc2ec4
+tokenAddress=0x0a91add9e3e97057980da7826043aab2a2d4c35b gas=4000000 gasUsed=1280695 costETH=0.0256139 costUSD=4.1913305265 @ ETH/USD=163.635 gasPrice=20000000000 block=551 txId=0xbc7a1e3ac3d2cd1330367e4a28baadbc26191491e011f0cd5fcbfaebe8a9e490
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       20.025507600000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.025507600000000000           0.000000000000000000 Account #1 - Token Owner
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       15.025613900000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.025613900000000000           0.000000000000000000 Account #1 - Token Owner
  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Purchased tokens
  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Purchased tokens
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - Minted tokens
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6
- 8 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.1 Deploy Token Contract
 token.symbol=SKO1
 token.name=Sikoba Continuous Sale
 token.decimals=18
-token.START_DATE=1495985641 Sun, 28 May 2017 15:34:01 UTC
-token.END_DATE=1495986182 Sun, 28 May 2017 15:43:02 UTC
+token.START_DATE=1495987607 Sun, 28 May 2017 16:06:47 UTC
+token.END_DATE=1495988148 Sun, 28 May 2017 16:15:48 UTC
 token.START_SKO1_UNITS=1650
 token.END_SKO1_UNITS=1200
-token.MULT_FACTOR=1000000000
+token.MULT_FACTOR=1000000000000000000
 token.unitsPerEthAt(START_DATE)/token.MULT_FACTOR=1650
 token.unitsPerEthAt(END_DATE)/token.MULT_FACTOR=1200
 token.MAX_USD_FUNDING=20000
@@ -40,21 +40,21 @@ token.unitsPerEth/token.MULT_FACTOR=1650
 token.totalUsdFunding=0
 token.maxUsdFundingReached=false
 token.usdPerHundredEth=16364
-token.softEndDate=1495986182 Sun, 28 May 2017 15:43:02 UTC
+token.softEndDate=1495988148 Sun, 28 May 2017 16:15:48 UTC
 token.ethersContributed=0
-UsdRateSet Event 0: _usdPerHundredEth=16364 block=4
+UsdRateSet Event 0: _usdPerHundredEth=16364 block=551
 
 Test 1.2 Send ETH before funding period starts - expect to fail
-tx1_2 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=6 txId=0x764544fd231c6cee2c624babe2dd5efd40f61eaadc4e71b289c1fff1c007fa44
+tx1_2 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=555 txId=0xbed947fe399f795ef897000866cdc17208e6b1d0539cc4e4dceb025597811218
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.033507600000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.025507600000000000           0.000000000000000000 Account #1 - Token Owner
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       35.033613900000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.025613900000000000           0.000000000000000000 Account #1 - Token Owner
  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -0.008000000000000000           0.000000000000000000 Account #2 - Purchased tokens
  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Purchased tokens
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - Minted tokens
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6
- 8 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.2 Send ETH before funding period starts - expect to fail
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
@@ -65,23 +65,23 @@ token.unitsPerEth/token.MULT_FACTOR=1650
 token.totalUsdFunding=0
 token.maxUsdFundingReached=false
 token.usdPerHundredEth=16364
-token.softEndDate=1495986182 Sun, 28 May 2017 15:43:02 UTC
+token.softEndDate=1495988148 Sun, 28 May 2017 16:15:48 UTC
 token.ethersContributed=0
 
 Test 1.3 Mint ETH before funding period starts
-tx1_3_1 gas=400000 gasUsed=65976 costETH=0.00131952 costUSD=0.2159196552 @ ETH/USD=163.635 gasPrice=20000000000 block=9 txId=0x59daae617e8fc0a47405756c8f771a0d891ee7b05869b2aec302956548af9b23
-tx1_3_2 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=9 txId=0x82bbff1b8964c933b506c0959f415b1f6a7ac97535d2458d5faeea1bf70cb4d7
-tx1_3_3 gas=400000 gasUsed=42359 costETH=0.00084718 costUSD=0.1386282993 @ ETH/USD=163.635 gasPrice=20000000000 block=9 txId=0x58ed14f24de8ebc4d590b99acefc1518b7c6ab3926cfc892de9065b14e78068c
-tx1_3_4 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=9 txId=0xadecdbc7f76119a1ed98e01ed634a24ba6a0be4504ef46bdc29ca830eae5fe7a
+tx1_3_1 gas=400000 gasUsed=65976 costETH=0.00131952 costUSD=0.2159196552 @ ETH/USD=163.635 gasPrice=20000000000 block=557 txId=0xcb3e899191022fd4870b3c1b46bf5f74cb48e7b5360ca9ac2fa35a4a282342fc
+tx1_3_2 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=557 txId=0xb86b03adc975d711279b38bd37c92378e84cf1010392a4f6a0912d7e37f389bf
+tx1_3_3 gas=400000 gasUsed=42359 costETH=0.00084718 costUSD=0.1386282993 @ ETH/USD=163.635 gasPrice=20000000000 block=557 txId=0x55c0939d4d160afc756dd90bbef06abbfdcecec0353206a1d6caab30aac8214e
+tx1_3_4 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=557 txId=0xb9161c76bc40027c4aee194b2bcc2fb20ec0fcb2b77e45008905d117174b866e
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       45.051674300000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.035674300000000000           0.000000000000000000 Account #1 - Token Owner
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       45.051780600000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.035780600000000000           0.000000000000000000 Account #1 - Token Owner
  3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -0.008000000000000000           0.000000000000000000 Account #2 - Purchased tokens
  4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Purchased tokens
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000         100.000000000000000000 Account #4 - Minted tokens
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.008000000000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6
- 8 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.3 Mint ETH before funding period starts - owner mint for account4
 PASS Test 1.3 Mint ETH before funding period starts - self mint for account5 will fail
 PASS Test 1.3 Mint ETH before funding period starts - minting completed
@@ -95,27 +95,27 @@ token.unitsPerEth/token.MULT_FACTOR=1650
 token.totalUsdFunding=0
 token.maxUsdFundingReached=false
 token.usdPerHundredEth=16364
-token.softEndDate=1495986182 Sun, 28 May 2017 15:43:02 UTC
+token.softEndDate=1495988148 Sun, 28 May 2017 16:15:48 UTC
 token.ethersContributed=0
-Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa44a08d3f6933c69212114bb66e2df1813651844 value=100 block=9
+Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa44a08d3f6933c69212114bb66e2df1813651844 value=100 block=557
 
-Waiting until funding period is active at 1495985641 Mon, 29 May 2017 01:34:01 AEST currentDate=Mon, 29 May 2017 01:33:35 AEST
-Waited until funding period is active at 1495985641 Mon, 29 May 2017 01:34:01 AEST currentDate=Mon, 29 May 2017 01:34:01 AEST
+Waiting until funding period is active at 1495987607 Mon, 29 May 2017 02:06:47 AEST currentDate=Mon, 29 May 2017 02:06:28 AEST
+Waited until funding period is active at 1495987607 Mon, 29 May 2017 02:06:47 AEST currentDate=Mon, 29 May 2017 02:06:47 AEST
 
 Test 1.4 Change USD rate; send ETH account2 1; account3 100; account4 0.001
-tx1_4_1 gas=100000 gasUsed=28065 costETH=0.0005613 costUSD=0.0918483255 @ ETH/USD=163.635 gasPrice=20000000000 block=22 txId=0xdfd1f82aec3c3fe07db15fd0f0da41655a99c167f91c434dc65c0cf74612f069
-tx1_4_2 gas=400000 gasUsed=68328 costETH=0.00136656 costUSD=0.2236170456 @ ETH/USD=163.635 gasPrice=20000000000 block=22 txId=0x7c16346cb5cbaf0b9c1c83e8dcd63cc3c7316063647518d2be1c4c3b6c46d087
-tx1_4_3 gas=400000 gasUsed=98328 costETH=0.00196656 costUSD=0.3217980456 @ ETH/USD=163.635 gasPrice=20000000000 block=22 txId=0x7b92bab36b20ba8c50ff6102448b561707a97cd05f3974cbec35c905c70fbd1a
-tx1_4_4 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=22 txId=0x84038e9e88faf4884cbeedd7f48bb27bdd9324b47860cc92ca44ee687762d723
+tx1_4_1 gas=100000 gasUsed=28065 costETH=0.0005613 costUSD=0.0918483255 @ ETH/USD=163.635 gasPrice=20000000000 block=565 txId=0x0d552cc01d56e5a93472ee36d67c475c7fa91d15a6785fd04592dfdb60b41130
+tx1_4_2 gas=400000 gasUsed=68328 costETH=0.00136656 costUSD=0.2236170456 @ ETH/USD=163.635 gasPrice=20000000000 block=565 txId=0x9e16d68022c9a4a08fdc8667b5dd2b3914c9f48dad0efd8d0b1d487ef30bda6d
+tx1_4_3 gas=400000 gasUsed=98328 costETH=0.00196656 costUSD=0.3217980456 @ ETH/USD=163.635 gasPrice=20000000000 block=565 txId=0xfbb712e10aec88bcfa7c0235d9854fc9ee2722dbe08349ffebcccb935c0c4957
+tx1_4_4 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=565 txId=0x2c6682449224dc88491fc4562dc591f2f8ba777f164a6c37b290f8a383c15ffd
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      110.063568720000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      100.963764400000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -1.009366560000000000        1642.513863217000000000 Account #2 - Purchased tokens
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.009966560000000000      164251.386321700000000000 Account #3 - Purchased tokens
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       85.063675020000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      100.963658100000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -1.009366560000000000        1649.168207024029574862 Account #2 - Purchased tokens
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.009966560000000000      164916.820702402957486200 Account #3 - Purchased tokens
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000         100.000000000000000000 Account #4 - Minted tokens
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.008000000000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000 Account #6
- 8 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.4 Change USD rate; send ETH account2 1; account3 100; account4 0.001 - change USD rate to 16400
 PASS Test 1.4 Change USD rate; send ETH account2 1; account3 100; account4 0.001 - account2 1 ETH
 PASS Test 1.4 Change USD rate; send ETH account2 1; account3 100; account4 0.001 - account3 100 ETH
@@ -124,59 +124,59 @@ token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.mintingCompleted=true
 token.fundingPaused=false
-token.totalSupply=165993.900184917
-token.unitsPerEth/token.MULT_FACTOR=1639.186691313
+token.totalSupply=166665.988909426987061062
+token.unitsPerEth/token.MULT_FACTOR=1649.168207024029574862
 token.totalUsdFunding=16564
 token.maxUsdFundingReached=false
 token.usdPerHundredEth=16400
-token.softEndDate=1495986182 Sun, 28 May 2017 15:43:02 UTC
+token.softEndDate=1495988148 Sun, 28 May 2017 16:15:48 UTC
 token.ethersContributed=101
-Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 value=164251.3863217 block=22
-Transfer Event 1: from=0x0000000000000000000000000000000000000000 to=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 value=1642.513863217 block=22
-UsdRateSet Event 0: _usdPerHundredEth=16400 block=22
-TokensBought Event 0: args={"buyer":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","ethers":"100000000000000000000","newTotalSupply":"1.643513863217e+23","tokens":"1.642513863217e+23","unitsPerEth":"1642513863217"} block=22
-TokensBought Event 1: args={"buyer":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","ethers":"1000000000000000000","newTotalSupply":"1.65993900184917e+23","tokens":"1.642513863217e+21","unitsPerEth":"1642513863217"} block=22
+Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 value=164916.8207024029574862 block=565
+Transfer Event 1: from=0x0000000000000000000000000000000000000000 to=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 value=1649.168207024029574862 block=565
+UsdRateSet Event 0: _usdPerHundredEth=16400 block=565
+TokensBought Event 0: args={"buyer":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0","ethers":"100000000000000000000","newTotalSupply":"1.650168207024029574862e+23","tokens":"1.649168207024029574862e+23","unitsPerEth":"1.649168207024029574862e+21"} block=565
+TokensBought Event 1: args={"buyer":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","ethers":"1000000000000000000","newTotalSupply":"1.66665988909426987061062e+23","tokens":"1.649168207024029574862e+21","unitsPerEth":"1.649168207024029574862e+21"} block=565
 
 Test 1.5 Account2,3 transfer 2,000 tokens to accounts5,6
-tx1_5_1 gas=100000 gasUsed=24212 costETH=0.00048424 costUSD=0.0792386124 @ ETH/USD=163.635 gasPrice=20000000000 block=25 txId=0x1f12f7342f56e65c646d03de8aab186e68becbfb1aef65a2c3e5ba85534b1ae7
-tx1_5_2 gas=100000 gasUsed=51553 costETH=0.00103106 costUSD=0.1687175031 @ ETH/USD=163.635 gasPrice=20000000000 block=25 txId=0xe25e9e87afb1aa4fccd980192ae0ef4e1c4836294b6c2fbea972892f52b6ddb9
+tx1_5_1 gas=100000 gasUsed=24212 costETH=0.00048424 costUSD=0.0792386124 @ ETH/USD=163.635 gasPrice=20000000000 block=567 txId=0x86475e598485d2e59fb5d0061166681b07fedbe80c1bd574d2c1d4620728fe9f
+tx1_5_2 gas=100000 gasUsed=51553 costETH=0.00103106 costUSD=0.1687175031 @ ETH/USD=163.635 gasPrice=20000000000 block=567 txId=0x97c857f6dc5104992eb8f8d7fb5db0a3f07ef41f47af9e354634672f0c20979f
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      125.065084020000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      100.963764400000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -1.009850800000000000        1642.513863217000000000 Account #2 - Purchased tokens
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162251.386321700000000000 Account #3 - Purchased tokens
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       95.065190320000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      100.963658100000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -1.009850800000000000        1649.168207024029574862 Account #2 - Purchased tokens
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162916.820702402957486200 Account #3 - Purchased tokens
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000         100.000000000000000000 Account #4 - Minted tokens
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.008000000000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000        2000.000000000000000000 Account #6
- 8 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.5 Account2,3 transfer 2,000 tokens to accounts5,6 - account2 2,000 tokens has insufficient tokens
 PASS Test 1.5 Account2,3 transfer 2,000 tokens to accounts5,6 - account3 2,000 tokens success
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.mintingCompleted=true
 token.fundingPaused=false
-token.totalSupply=165993.900184917
-token.unitsPerEth/token.MULT_FACTOR=1635.859519409
+token.totalSupply=166665.988909426987061062
+token.unitsPerEth/token.MULT_FACTOR=1642.513863216266173753
 token.totalUsdFunding=16564
 token.maxUsdFundingReached=false
 token.usdPerHundredEth=16400
-token.softEndDate=1495986182 Sun, 28 May 2017 15:43:02 UTC
+token.softEndDate=1495988148 Sun, 28 May 2017 16:15:48 UTC
 token.ethersContributed=101
-Transfer Event 0: from=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 value=2000 block=25
+Transfer Event 0: from=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 value=2000 block=567
 
 Test 1.6 Account2 approves transfer of 200 tokens to account6 and account6 transfers; account5 invalid transferFrom
-tx1_6_1 gas=100000 gasUsed=45532 costETH=0.00091064 costUSD=0.1490125764 @ ETH/USD=163.635 gasPrice=20000000000 block=28 txId=0x95eca2625dd124fd48f081e4574c6e08964131aff14037dcd51f2f03b5d8c6c1
-tx1_6_2 gas=100000 gasUsed=28049 costETH=0.00056098 costUSD=0.0917959623 @ ETH/USD=163.635 gasPrice=20000000000 block=30 txId=0x4c6a8a0ab4afc80f9468ecbecc50516e7a57f42a4797c80d5d38998a612fab17
-tx1_6_3 gas=100000 gasUsed=25503 costETH=0.00051006 costUSD=0.0834636681 @ ETH/USD=163.635 gasPrice=20000000000 block=30 txId=0x5db64406e67c08a12a6c61d6edce8abfce6a4e9ac036f63311e1c727a56b69c6
+tx1_6_1 gas=100000 gasUsed=45532 costETH=0.00091064 costUSD=0.1490125764 @ ETH/USD=163.635 gasPrice=20000000000 block=571 txId=0xeb14df5a18fd894853348ea680e7cd77492781b5dbf09b340ee01474c48eabf7
+tx1_6_2 gas=100000 gasUsed=28049 costETH=0.00056098 costUSD=0.0917959623 @ ETH/USD=163.635 gasPrice=20000000000 block=573 txId=0x5e3088e237b1e2c36b2b21b1475c3d02aa0432deef58ced3b3e58a28ea2a0423
+tx1_6_3 gas=100000 gasUsed=25503 costETH=0.00051006 costUSD=0.0834636681 @ ETH/USD=163.635 gasPrice=20000000000 block=573 txId=0x463c5b25286514a6c5a068ce45f48f11aeab5bb1001097910d817c81b362b238
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      150.067065700000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      100.963764400000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -1.010761440000000000        1442.513863217000000000 Account #2 - Purchased tokens
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162251.386321700000000000 Account #3 - Purchased tokens
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      125.067172000000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      100.963658100000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -1.010761440000000000        1449.168207024029574862 Account #2 - Purchased tokens
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162916.820702402957486200 Account #3 - Purchased tokens
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000         100.000000000000000000 Account #4 - Minted tokens
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.008510060000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000560980000000000        2200.000000000000000000 Account #6
- 8 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.6 Account2 approves transfer of 200 tokens to account6 and account6 transfers; account5 invalid transferFrom - account2 approves
 PASS Test 1.6 Account2 approves transfer of 200 tokens to account6 and account6 transfers; account5 invalid transferFrom - account6 transferFrom
 PASS Test 1.6 Account2 approves transfer of 200 tokens to account6 and account6 transfers; account5 invalid transferFrom - account5 transferFrom account3 w/o approval
@@ -184,29 +184,29 @@ token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.mintingCompleted=true
 token.fundingPaused=false
-token.totalSupply=165993.900184917
-token.unitsPerEth/token.MULT_FACTOR=1613.401109058
+token.totalSupply=166665.988909426987061062
+token.unitsPerEth/token.MULT_FACTOR=1603.419593345656192237
 token.totalUsdFunding=16564
 token.maxUsdFundingReached=false
 token.usdPerHundredEth=16400
-token.softEndDate=1495986182 Sun, 28 May 2017 15:43:02 UTC
+token.softEndDate=1495988148 Sun, 28 May 2017 16:15:48 UTC
 token.ethersContributed=101
-Approval Event 0: owner=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 spender=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 value=200 block=28
-Transfer Event 0: from=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 value=200 block=30
+Approval Event 0: owner=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 spender=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 value=200 block=571
+Transfer Event 0: from=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 value=200 block=573
 
 Test 1.7 Pause funding; account5 send funds unsuccessfully; restart funding
-tx1_7_1 gas=100000 gasUsed=26963 costETH=0.00053926 costUSD=0.0882418101 @ ETH/USD=163.635 gasPrice=20000000000 block=33 txId=0xdc65e56e28d30c30b8d46ed0524c076a806bfdc472213579ae652c4345021730
-tx1_7_2 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=35 txId=0x32572b435fb70b1a3ad72bbe39e2a0f799ac42e854053535a158f30636f5fe28
-tx1_7_3 gas=100000 gasUsed=26649 costETH=0.00053298 costUSD=0.0872141823 @ ETH/USD=163.635 gasPrice=20000000000 block=37 txId=0xf3b71a96ca90608ebd1b1fc9a79e920d2f58ea6e9b36113a4381eaf3fd4826b1
+tx1_7_1 gas=100000 gasUsed=26963 costETH=0.00053926 costUSD=0.0882418101 @ ETH/USD=163.635 gasPrice=20000000000 block=576 txId=0xb596feb6aff89a34beefa1912b25877a1213a3ebb18f560e19b2e9f87f93851a
+tx1_7_2 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=578 txId=0x543644955bb73686fa9d6d3dbe75a90cb5390cb02ea8c6ea3a03a7ef5435e4fd
+tx1_7_3 gas=100000 gasUsed=26649 costETH=0.00053298 costUSD=0.0872141823 @ ETH/USD=163.635 gasPrice=20000000000 block=580 txId=0x6b437a31eaf93694d938f14410805cdbce7c278922b7b3ccb7da345f134ff4ec
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      185.076137940000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      100.962692160000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -1.010761440000000000        1442.513863217000000000 Account #2 - Purchased tokens
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162251.386321700000000000 Account #3 - Purchased tokens
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      160.076244240000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      100.962585860000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976       -1.010761440000000000        1449.168207024029574862 Account #2 - Purchased tokens
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162916.820702402957486200 Account #3 - Purchased tokens
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000         100.000000000000000000 Account #4 - Minted tokens
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.016510060000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000560980000000000        2200.000000000000000000 Account #6
- 8 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.7 Pause funding; account5 send funds unsuccessfully; restart funding - pause funding
 PASS Test 1.7 Pause funding; account5 send funds unsuccessfully; restart funding - account5 sending funds unsuccessfully
 PASS Test 1.7 Pause funding; account5 send funds unsuccessfully; restart funding - restart funding
@@ -214,117 +214,117 @@ token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.mintingCompleted=true
 token.fundingPaused=false
-token.totalSupply=165993.900184917
-token.unitsPerEth/token.MULT_FACTOR=1591.774491683
+token.totalSupply=166665.988909426987061062
+token.unitsPerEth/token.MULT_FACTOR=1571.811460258780036969
 token.totalUsdFunding=16564
 token.maxUsdFundingReached=false
 token.usdPerHundredEth=16400
-token.softEndDate=1495986182 Sun, 28 May 2017 15:43:02 UTC
+token.softEndDate=1495988148 Sun, 28 May 2017 16:15:48 UTC
 token.ethersContributed=101
 
 Test 1.8 Account2 send 200 ETH - max funding reached; soft limit +30seconds kicks in
-tx1_8_1 gas=400000 gasUsed=78413 costETH=0.00156826 costUSD=0.2566222251 @ ETH/USD=163.635 gasPrice=20000000000 block=40 txId=0x84424cc8504982c4da626a4a7af3877a901c3fd8f5105ce1c4776abe10adfaa2
+tx1_8_1 gas=400000 gasUsed=78413 costETH=0.00156826 costUSD=0.2566222251 @ ETH/USD=163.635 gasPrice=20000000000 block=582 txId=0xc3a6741d45b8c16a624993b7a4f22d2198edea65e41af69c7266084a5dd6631e
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      200.077706200000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      300.962692160000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -201.012329700000000000      318965.619223817000000000 Account #2 - Purchased tokens
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162251.386321700000000000 Account #3 - Purchased tokens
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      170.077812500000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433      300.962585860000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976     -201.012329700000000000      314813.308687615526802262 Account #2 - Purchased tokens
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162916.820702402957486200 Account #3 - Purchased tokens
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000         100.000000000000000000 Account #4 - Minted tokens
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.016510060000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000560980000000000        2200.000000000000000000 Account #6
- 8 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.8 Account2 send 200 ETH - max funding reached; soft limit +30seconds kicks in
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.mintingCompleted=true
 token.fundingPaused=false
-token.totalSupply=483517.005545517
-token.unitsPerEth/token.MULT_FACTOR=1587.615526803
+token.totalSupply=480030.129390018484288462
+token.unitsPerEth/token.MULT_FACTOR=1566.820702402957486137
 token.totalUsdFunding=49364
 token.maxUsdFundingReached=true
 token.usdPerHundredEth=16400
-token.softEndDate=1495985746 Sun, 28 May 2017 15:35:46 UTC
+token.softEndDate=1495987737 Sun, 28 May 2017 16:08:57 UTC
 token.ethersContributed=301
-Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 value=317523.1053606 block=40
-TokensBought Event 0: args={"buyer":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","ethers":"200000000000000000000","newTotalSupply":"4.83517005545517e+23","tokens":"3.175231053606e+23","unitsPerEth":"1587615526803"} block=40
+Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 value=313364.1404805914972274 block=582
+TokensBought Event 0: args={"buyer":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","ethers":"200000000000000000000","newTotalSupply":"4.80030129390018484288462e+23","tokens":"3.133641404805914972274e+23","unitsPerEth":"1.566820702402957486137e+21"} block=582
 
 Test 1.9 Account2 send 2000 ETH - soft limit in effect and max funding reached
-tx1_9_1 gas=400000 gasUsed=53267 costETH=0.00106534 costUSD=0.1743269109 @ ETH/USD=163.635 gasPrice=20000000000 block=42 txId=0x3ec42234d53444ba313b74ed886f0852e85d6cc0f2ec00a67db67d314edd330a
+tx1_9_1 gas=400000 gasUsed=53267 costETH=0.00106534 costUSD=0.1743269109 @ ETH/USD=163.635 gasPrice=20000000000 block=584 txId=0x98de459a02c37660ea24368930853c1ad21cf54b114465675b1fa2f5c50f6a88
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      210.078771540000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433     2300.962692160000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976    -2201.013395040000000000     3467579.297597817000000000 Account #2 - Purchased tokens
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162251.386321700000000000 Account #3 - Purchased tokens
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      180.078877840000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433     2300.962585860000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976    -2201.013395040000000000     3401874.306839186691314262 Account #2 - Purchased tokens
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162916.820702402957486200 Account #3 - Purchased tokens
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000         100.000000000000000000 Account #4 - Minted tokens
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.016510060000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000560980000000000        2200.000000000000000000 Account #6
- 8 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 1.9 Account2 send 2000 ETH - soft limit in effect and max funding reached
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.mintingCompleted=true
 token.fundingPaused=false
-token.totalSupply=3632130.683919517
-token.unitsPerEth/token.MULT_FACTOR=1574.306839187
+token.totalSupply=3567091.127541589648800462
+token.unitsPerEth/token.MULT_FACTOR=1543.530499075785582256
 token.totalUsdFunding=377364
 token.maxUsdFundingReached=true
 token.usdPerHundredEth=16400
-token.softEndDate=1495985746 Sun, 28 May 2017 15:35:46 UTC
+token.softEndDate=1495987737 Sun, 28 May 2017 16:08:57 UTC
 token.ethersContributed=2301
-Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 value=3148613.678374 block=42
-TokensBought Event 0: args={"buyer":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","ethers":"2e+21","newTotalSupply":"3.632130683919517e+24","tokens":"3.148613678374e+24","unitsPerEth":"1574306839187"} block=42
+Transfer Event 0: from=0x0000000000000000000000000000000000000000 to=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976 value=3087060.998151571164512 block=584
+TokensBought Event 0: args={"buyer":"0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976","ethers":"2e+21","newTotalSupply":"3.567091127541589648800462e+24","tokens":"3.087060998151571164512e+24","unitsPerEth":"1.543530499075785582256e+21"} block=584
 
-Waiting until soft funding period has ended at 1495985747 Mon, 29 May 2017 01:35:47 AEST currentDate=Mon, 29 May 2017 01:35:36 AEST
-Waited until soft funding period has ended at 1495985747 Mon, 29 May 2017 01:35:47 AEST currentDate=Mon, 29 May 2017 01:35:47 AEST
+Waiting until soft funding period has ended at 1495987738 Mon, 29 May 2017 02:08:58 AEST currentDate=Mon, 29 May 2017 02:09:03 AEST
+Waited until soft funding period has ended at 1495987738 Mon, 29 May 2017 02:08:58 AEST currentDate=Mon, 29 May 2017 02:09:03 AEST
 
 Test 2.0 Account2 send 400 ETH - soft end date over
-tx2_0_1 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=45 txId=0x1ca65f373ea964fbb467e708fbfe0cc2575796fb51acacdf09d1f55adf38c297
+tx2_0_1 gas=400000 gasUsed=400000 costETH=0.008 costUSD=1.30908 @ ETH/USD=163.635 gasPrice=20000000000 block=586 txId=0xc79fc85f56486c9cf3090641d522d272b38a78933f7fc4de3f8bc0fa025e595c
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      225.086771540000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433     2300.962692160000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976    -2201.021395040000000000     3467579.297597817000000000 Account #2 - Purchased tokens
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162251.386321700000000000 Account #3 - Purchased tokens
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      195.086877840000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433     2300.962585860000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976    -2201.021395040000000000     3401874.306839186691314262 Account #2 - Purchased tokens
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162916.820702402957486200 Account #3 - Purchased tokens
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000         100.000000000000000000 Account #4 - Minted tokens
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.016510060000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000560980000000000        2200.000000000000000000 Account #6
- 8 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 2.0 Account2 send 400 ETH - soft end date over
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.newOwner=0x0000000000000000000000000000000000000000
 token.mintingCompleted=true
 token.fundingPaused=false
-token.totalSupply=3632130.683919517
-token.unitsPerEth/token.MULT_FACTOR=1554.343807764
+token.totalSupply=3567091.127541589648800462
+token.unitsPerEth/token.MULT_FACTOR=1523.567467652495378928
 token.totalUsdFunding=377364
 token.maxUsdFundingReached=true
 token.usdPerHundredEth=16400
-token.softEndDate=1495985746 Sun, 28 May 2017 15:35:46 UTC
+token.softEndDate=1495987737 Sun, 28 May 2017 16:08:57 UTC
 token.ethersContributed=2301
 
 Test 2.1 Change Ownership
-tx2_1_1 gas=100000 gasUsed=43823 costETH=0.00087646 costUSD=0.1434195321 @ ETH/USD=163.635 gasPrice=20000000000 block=47 txId=0xffb5b9a73a21434e00c2823d62a0c6720492a9526ccc6997e302503fdd98b373
-tx2_1_2 gas=100000 gasUsed=28720 costETH=0.0005744 costUSD=0.093991944 @ ETH/USD=163.635 gasPrice=20000000000 block=49 txId=0xf5622930ec91af48befb11d768330553afde352c942fd198ebc933e39b3f30f8
+tx2_1_1 gas=100000 gasUsed=43823 costETH=0.00087646 costUSD=0.1434195321 @ ETH/USD=163.635 gasPrice=20000000000 block=589 txId=0x002fdff32c36817a649fc6df664483cde1f7c2471aec5b4d6d98213c5d233273
+tx2_1_2 gas=100000 gasUsed=28720 costETH=0.0005744 costUSD=0.093991944 @ ETH/USD=163.635 gasPrice=20000000000 block=591 txId=0xe479fa1c74beeebc3d4dbc502e0552510414212aa8667c3288a97226b819890e
  # Account                                             EtherBalanceChange                          Token Name
- 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      245.087648000000000000           0.000000000000000000 Account #0 - Miner
- 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433     2300.961815700000000000           0.000000000000000000 Account #1 - Token Owner
- 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976    -2201.021395040000000000     3467579.297597817000000000 Account #2 - Purchased tokens
- 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162251.386321700000000000 Account #3 - Purchased tokens
+ 1 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      215.087754300000000000           0.000000000000000000 Account #0 - Miner
+ 2 0xa11aae29840fbb5c86e6fd4cf809eba183aef433     2300.961709400000000000           0.000000000000000000 Account #1 - Token Owner
+ 3 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976    -2201.021395040000000000     3401874.306839186691314262 Account #2 - Purchased tokens
+ 4 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0     -100.010997620000000000      162916.820702402957486200 Account #3 - Purchased tokens
  5 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000         100.000000000000000000 Account #4 - Minted tokens
  6 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.016510060000000000           0.000000000000000000 Account #5
  7 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000560980000000000        2200.000000000000000000 Account #6
- 8 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 TOKEN
+ 8 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000 TOKEN
 PASS Test 2.1 Change Ownership - Change owner
 PASS Test 2.1 Change Ownership - Accept ownership
 token.owner=0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e
 token.newOwner=0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e
 token.mintingCompleted=true
 token.fundingPaused=false
-token.totalSupply=3632130.683919517
-token.unitsPerEth/token.MULT_FACTOR=1546.85767098
+token.totalSupply=3567091.127541589648800462
+token.unitsPerEth/token.MULT_FACTOR=1508.595194085027726433
 token.totalUsdFunding=377364
 token.maxUsdFundingReached=true
 token.usdPerHundredEth=16400
-token.softEndDate=1495985746 Sun, 28 May 2017 15:35:46 UTC
+token.softEndDate=1495987737 Sun, 28 May 2017 16:08:57 UTC
 token.ethersContributed=2301
-OwnershipTransferred Event 0: from=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 to=0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e 49
+OwnershipTransferred Event 0: from=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 to=0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e 591
 

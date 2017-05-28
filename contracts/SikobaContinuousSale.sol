@@ -214,7 +214,7 @@ contract SikobaContinuousSale is ERC20Token {
     bool public fundingPaused = false;
 
     // Multiplication factor for extra integer multiplication precision
-    uint256 public constant MULT_FACTOR = 10**9;
+    uint256 public constant MULT_FACTOR = 10**18;
 
     // ------------------------------------------------------------------------
     // Events
