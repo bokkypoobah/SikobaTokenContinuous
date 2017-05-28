@@ -184,10 +184,10 @@ contract SikobaContinuousSale is ERC20Token {
     uint8 public constant decimals = 18;
 
     // Thursday, 01-Jun-17 00:00:00 UTC
-    uint256 public constant START_DATE = 1495979121; // Sun 28 May 2017 13:45:21 UTC
+    uint256 public constant START_DATE = 1495979629; // Sun 28 May 2017 13:53:49 UTC
 
     // Tuesday, 31-Oct-17 23:59:59 UTC
-    uint256 public constant END_DATE = 1495979662; // Sun 28 May 2017 13:54:22 UTC
+    uint256 public constant END_DATE = 1495980170; // Sun 28 May 2017 14:02:50 UTC
 
     // number of SKO1 units per ETH at beginning and end
     uint256 public constant START_SKO1_UNITS = 1650;
@@ -198,6 +198,9 @@ contract SikobaContinuousSale is ERC20Token {
 
     // Minimum contribution amount is 0.01 ETH
     uint256 public constant MIN_CONTRIBUTION = 10**16;
+
+    // One day soft time limit if max contribution reached
+    uint256 public constant ONE_DAY = 30;
 
     uint256 public totalUsdFunding;
     bool public maxUsdFundingReached = false;
@@ -269,7 +272,7 @@ contract SikobaContinuousSale is ERC20Token {
         if (now < START_DATE) throw;
         if (now > END_DATE) throw;
         if (now > softEndDate) throw;
-        if (msg.value < MIN_CONTRIBUTION) throw; // at least ETH 0.01
+        if (msg.value < MIN_CONTRIBUTION) throw;
 
         // issue tokens
         uint256 _unitsPerEth = unitsPerEth();
@@ -281,7 +284,7 @@ contract SikobaContinuousSale is ERC20Token {
         // approximative funding in USD
         totalUsdFunding += msg.value * usdPerHundredEth / 10**20;
         if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
-            softEndDate = now + 30;
+            softEndDate = now + ONE_DAY;
             maxUsdFundingReached = true;
         }
 

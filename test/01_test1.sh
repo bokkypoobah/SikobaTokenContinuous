@@ -54,7 +54,7 @@ printf "ENDTIME         = '$ENDTIME' '$ENDTIME_S'\n"
 `perl -pi -e "s/START_DATE = 1496275200;/START_DATE = $STARTTIME; \/\/ $STARTTIME_S/" $TOKENTEMPSOL`
 `perl -pi -e "s/END_DATE = 1509494399;/END_DATE = $ENDTIME; \/\/ $ENDTIME_S/" $TOKENTEMPSOL`
 `perl -pi -e "s/MAX_USD_FUNDING = 400000;/MAX_USD_FUNDING = 20000;/" $TOKENTEMPSOL`
-`perl -pi -e "s/softEndDate = now \+ 24\*60\*60;/softEndDate = now \+ 30;/" $TOKENTEMPSOL`
+`perl -pi -e "s/ONE_DAY = 24\*60\*60;/ONE_DAY = 30;/" $TOKENTEMPSOL`
 
 DIFFS=`diff $TOKENSOL $TOKENTEMPSOL`
 echo "--- Differences ---"
