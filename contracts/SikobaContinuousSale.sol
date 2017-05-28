@@ -292,7 +292,7 @@ contract SikobaContinuousSale is ERC20Token {
         TokensBought(msg.sender, msg.value, tokens, _totalSupply, _unitsPerEth);
 
         // Send balance to owner
-        owner.transfer(this.balance);
+        if (!owner.send(this.balance)) throw;
     }
 
     // ------------------------------------------------------------------------
