@@ -276,8 +276,7 @@ contract SikobaContinuousSale is ERC20Token {
         uint256 tokens = msg.value * _unitsPerEth / MULT_FACTOR;
         _totalSupply += tokens;
         balances[msg.sender] += tokens;
-        Transfer(0, this, tokens);
-        Transfer(this, msg.sender, tokens);
+        Transfer(0x0, msg.sender, tokens);
 
         // approximative funding in USD
         totalUsdFunding += msg.value * usdPerHundredEth / 10**20;
@@ -314,8 +313,7 @@ contract SikobaContinuousSale is ERC20Token {
         if (mintingCompleted) throw;
         balances[participant] += tokens;
         _totalSupply += tokens;
-        Transfer(0, this, tokens);
-        Transfer(this, participant, tokens);
+        Transfer(0x0, participant, tokens);
     }
 
     function setMintingCompleted() onlyOwner {
