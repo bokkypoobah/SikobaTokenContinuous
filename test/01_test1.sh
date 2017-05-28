@@ -83,7 +83,7 @@ var tokenContract = web3.eth.contract(tokenAbi);
 console.log(JSON.stringify(tokenContract));
 var tokenTx = null;
 var tokenAddress = null;
-var usdPerHundredETH = 15178;
+var usdPerHundredETH = 16364;
 var token = tokenContract.new(usdPerHundredETH, {from: tokenOwnerAccount, data: tokenBin, gas: 4000000},
   function(e, contract) {
     if (!e) {
@@ -117,6 +117,7 @@ if (!skipFundingBeforeStartTest) {
   var tx1_2 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("123.456789", "ether")});
   while (txpool.status.pending > 0) {
   }
+  printTxData("tx1_2", tx1_2);
   printBalances();
   passIfGasEqualsGasUsed(tx1_2, testMessage);
   printTokenContractDynamicDetails();
@@ -132,11 +133,15 @@ if (!skipFundingBeforeStartTest) {
   var tx1_3_4 = token.mint(account6, 1e20, {from: tokenOwnerAccount, gas: 400000});
   while (txpool.status.pending > 0) {
   }
+  printTxData("tx1_3_1", tx1_3_1);
+  printTxData("tx1_3_2", tx1_3_2);
+  printTxData("tx1_3_3", tx1_3_3);
+  printTxData("tx1_3_4", tx1_3_4);
   printBalances();
   failIfGasEqualsGasUsed(tx1_3_1, testMessage + " - owner mint for account4");
   passIfGasEqualsGasUsed(tx1_3_2, testMessage + " - self mint for account5 will fail");
   failIfGasEqualsGasUsed(tx1_3_3, testMessage + " - minting completed");
-  passIfGasEqualsGasUsed(tx1_3_4, testMessage + " - owner mint for account6 will fail");
+  passIfGasEqualsGasUsed(tx1_3_4, testMessage + " - owner mint for account6 will fail as minting completed");
   printTokenContractDynamicDetails();
   console.log("RESULT: ");
 }
@@ -153,13 +158,17 @@ console.log("RESULT: ");
 // -----------------------------------------------------------------------------
 var testMessage = "Test 1.4 Change USD rate; send ETH account2 1; account3 100; account4 0.001";
 console.log("RESULT: " + testMessage);
-usdPerHundredETH = 15200;
+usdPerHundredETH = 16400;
 var tx1_4_1 = token.setUsdPerHundredEth(usdPerHundredETH, {from: tokenOwnerAccount, gas: 100000});
 var tx1_4_2 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("1", "ether")});
 var tx1_4_3 = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
 var tx1_4_4 = eth.sendTransaction({from: account3, to: tokenAddress, gas: 400000, value: web3.toWei("0.001", "ether")});
 while (txpool.status.pending > 0) {
 }
+printTxData("tx1_4_1", tx1_4_1);
+printTxData("tx1_4_2", tx1_4_2);
+printTxData("tx1_4_3", tx1_4_3);
+printTxData("tx1_4_4", tx1_4_4);
 printBalances();
 failIfGasEqualsGasUsed(tx1_4_1, testMessage + " - change USD rate to " + usdPerHundredETH);
 failIfGasEqualsGasUsed(tx1_4_2, testMessage + " - account2 1 ETH");
@@ -176,6 +185,8 @@ var tx1_5_1 = token.transfer(account5, "2000000000000000000000", {from: account2
 var tx1_5_2 = token.transfer(account6, "2000000000000000000000", {from: account3, gas: 100000});
 while (txpool.status.pending > 0) {
 }
+printTxData("tx1_5_1", tx1_5_1);
+printTxData("tx1_5_2", tx1_5_2);
 printBalances();
 failIfGasEqualsGasUsed(tx1_5_1, testMessage + " - account2 2,000 tokens has insufficient tokens");
 failIfGasEqualsGasUsed(tx1_5_2, testMessage + " - account3 2,000 tokens success");
@@ -190,13 +201,16 @@ var tx1_6_1 = token.approve(account6, "200000000000000000000", {from: account2, 
 while (txpool.status.pending > 0) {
 }
 var tx1_6_2 = token.transferFrom(account2, account6, "200000000000000000000", {from: account6, gas: 100000});
-var tx1_6_2 = token.transferFrom(account3, account5, "200000000000000000000", {from: account5, gas: 100000});
+var tx1_6_3 = token.transferFrom(account3, account5, "200000000000000000000", {from: account5, gas: 100000});
 while (txpool.status.pending > 0) {
 }
+printTxData("tx1_6_1", tx1_6_1);
+printTxData("tx1_6_2", tx1_6_2);
+printTxData("tx1_6_3", tx1_6_3);
 printBalances();
 failIfGasEqualsGasUsed(tx1_6_1, testMessage + " - account2 approves");
 failIfGasEqualsGasUsed(tx1_6_2, testMessage + " - account6 transferFrom");
-failIfGasEqualsGasUsed(tx1_6_2, testMessage + " - account5 transferFrom account3 w/o approval");
+failIfGasEqualsGasUsed(tx1_6_3, testMessage + " - account5 transferFrom account3 w/o approval");
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 
@@ -213,9 +227,12 @@ while (txpool.status.pending > 0) {
 var tx1_7_3 = token.restart({from: tokenOwnerAccount, gas: 100000});
 while (txpool.status.pending > 0) {
 }
+printTxData("tx1_7_1", tx1_7_1);
+printTxData("tx1_7_2", tx1_7_2);
+printTxData("tx1_7_3", tx1_7_3);
 printBalances();
 failIfGasEqualsGasUsed(tx1_7_1, testMessage + " - pause funding");
-failIfGasEqualsGasUsed(tx1_7_2, testMessage + " - account5 sending funds unsuccessfully");
+passIfGasEqualsGasUsed(tx1_7_2, testMessage + " - account5 sending funds unsuccessfully");
 failIfGasEqualsGasUsed(tx1_7_3, testMessage + " - restart funding");
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
@@ -227,6 +244,7 @@ console.log("RESULT: " + testMessage);
 var tx1_8_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("200", "ether")});
 while (txpool.status.pending > 0) {
 }
+printTxData("tx1_8_1", tx1_8_1);
 printBalances();
 failIfGasEqualsGasUsed(tx1_8_1, testMessage);
 printTokenContractDynamicDetails();
@@ -239,6 +257,7 @@ console.log("RESULT: " + testMessage);
 var tx1_9_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("2000", "ether")});
 while (txpool.status.pending > 0) {
 }
+printTxData("tx1_9_1", tx1_9_1);
 printBalances();
 failIfGasEqualsGasUsed(tx1_9_1, testMessage);
 printTokenContractDynamicDetails();
@@ -261,6 +280,7 @@ console.log("RESULT: " + testMessage);
 var tx2_0_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("400", "ether")});
 while (txpool.status.pending > 0) {
 }
+printTxData("tx2_0_1", tx2_0_1);
 printBalances();
 passIfGasEqualsGasUsed(tx2_0_1, testMessage);
 printTokenContractDynamicDetails();
