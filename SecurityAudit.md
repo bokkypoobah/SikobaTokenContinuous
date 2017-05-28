@@ -43,24 +43,25 @@
 <hr />
 
 ## Security Overview Of The Smart Contract
-* [ ] The smart contract has been kept relatively simple
-* [ ] The code has been tested for the normal [ERC20](https://github.com/ethereum/EIPs/issues/20) use cases, and around some of the boundary cases
-  * [ ] Deployment, with correct `symbol()`, `name()`, `decimals()` and `totalSupply()`
-  * [ ] Block for ethers being sent to this contract
-  * [ ] `transfer(...)` from one account to another
-  * [ ] `approve(...)` and `transferFrom(...)` from one account to another
-  * [ ] `transferOwnership(...)` and `acceptOwnership()` of the token contract
-  * [ ] `moveToWaves(...)` with the Waves address where the `WavesTransfer(...)` event is logged
-* [ ] The testing has been done using geth v1.6.1-stable-021c3c28/darwin-amd64/go1.8.1 and solc 0.4.11+commit.68ef5810.Darwin.appleclang instead of one of the testing frameworks and JavaScript VMs to simulate the live environment as closely as possible
-* [ ] The `approveAndCall(...)` function has been omitted from this token smart contract as the side effects of this function has not been evaluated fully
+* [x] The smart contract has been kept relatively simple
+* [x] The code has been tested for the normal [ERC20](https://github.com/ethereum/EIPs/issues/20) use cases, and around some of the boundary cases
+  * [x] Deployment, with correct `symbol()`, `name()`, `decimals()` and `totalSupply()`
+  * [x] Block for ethers being sent to this contract outside the crowdfunding dates
+  * [x] `transfer(...)` from one account to another
+  * [x] `approve(...)` and `transferFrom(...)` from one account to another
+  * [x] `transferOwnership(...)` and `acceptOwnership()` of the token contract
+* [x] The testing has been done using geth v1.6.1-stable-021c3c28/darwin-amd64/go1.8.1 and solc 0.4.11+commit.68ef5810.Darwin.appleclang instead of one of the testing frameworks and JavaScript VMs to simulate the live environment as closely as possible
+* [x] The `approveAndCall(...)` function has been omitted from this token smart contract as the side effects of this function has not been evaluated fully
 * [ ] There is no logic with potential division by zero errors
 * [ ] All numbers used are uint256 (with the exception of `decimals`), reducing the risk of errors from type conversions
-* [ ] Areas with potential overflow errors in `transfer(...)` and `transferFrom(...)` have the logic to prevent overflows
-* [ ] Areas with potential underflow errors in `transfer(...)` and `transferFrom(...)` have the logic to prevent underflows
-* [ ] Function and event names are differentiated by case - function names begin with a lowercase character and event names begin with an uppercase character
-* [ ] A default constructor has been added to reject any ethers being received by this smart contract
-* [ ] The function `transferAnyERC20Token(...)` has been added in case the owner has to free any accidentally trapped ERC20 tokens
-* [ ] The test results can be found in [test/test1results.txt](test/test1results.txt) for the results and [test/test1output.txt](test/test1output.txt) for the full output
+* [x] Areas with potential overflow errors in `transfer(...)` and `transferFrom(...)` have the logic to prevent overflows
+* [x] Areas with potential underflow errors in `transfer(...)` and `transferFrom(...)` have the logic to prevent underflows
+* [x] Function and event names are differentiated by case - function names begin with a lowercase character and event names begin with an uppercase character
+* [x] The default constructor will receive contributions during the crowdfunding phase and mint tokens
+* [x] The function `transferAnyERC20Token(...)` has been added in case the owner has to free any accidentally trapped ERC20 tokens
+* [x] The test results can be found in [test/test1results.txt](test/test1results.txt) for the results and [test/test1output.txt](test/test1output.txt) for the full output
+* [x] ETH contributed to this smart contract is immediately moved to the owner's account
+* [x] A crowdfunding pause / restart is available to pause and then restart the contract being able to receive contributions
 
 <br />
 
@@ -68,6 +69,11 @@
 
 * This token contract will not hold any ethers
 * In the case where a security vulnerability in this contract is discovered or exploited, a new token contract can be deployed to a new address with the correct(ed) balances transferred over from the old contract to the new contract
+* This token contract suffers from the same ERC20 double spend issue with the `approve(...)` and `transferFrom(...)` workflow, but this is a low risk exploit where:
+  * Account1 approves for account2 to spend `x`
+  * Account1 changes the approval limit to `y`. Account2 waits for the second approval transaction to be broadcasted and sends a `transferFrom(...)` to spend up to `x` before the second approval is mined
+  * Account2 spends up to `y` after the second approval is mined. Account2 can therefore spend up to `x` + `y`, instead of `x` or `y`
+  * To avoid this double spend, account1 has to set the approval limit to `0`, checking the `allowance(...)` and then setting the approval limit to `y` if account2 has not spent `x`
 
 <br />
 
@@ -75,7 +81,7 @@
 
 ### Other Notes
 
-* This token contract has been developed and tested by Alex Kampa and Bok Consulting Pty Ltd
+* This token contract has been developed and tested by Alex Kampa / Sikoba and Bok Consulting Pty Ltd
 * The security testing and audit has been conducted by Bok Consulting Pty Ltd
 
 <br />
@@ -86,7 +92,7 @@
 
 My comments in the following code are market in the lines beginning with `// NOTE: `.
 
-Following is the source code for [contracts/SikobaContinuousSale.sol](https://github.com/sikoba/token-continuous/blob/68c0a5767829b0fabcf76f07e96bb300f41380dd/contracts/SikobaContinuousSale.sol): 
+Following is the source code for [contracts/SikobaContinuousSale.sol](https://github.com/sikoba/token-continuous/blob/e20acad42a983af7a3087bbe96c1f09b10a7447c/contracts/SikobaContinuousSale.sol): 
 
 ```javascript
 pragma solidity ^0.4.8;
@@ -280,57 +286,74 @@ contract SikobaContinuousSale is ERC20Token {
     // Tuesday, 31-Oct-17 23:59:59 UTC
     uint256 public constant END_DATE = 1509494399;
 
-    // number of SKO1 units per ETH at beginning and end
+    // Number of SKO1 units per ETH at beginning and end
     uint256 public constant START_SKO1_UNITS = 1650;
     uint256 public constant END_SKO1_UNITS = 1200;
-
-    // maximum funding in USD
-    uint256 public constant MAX_USD_FUNDING = 400000;
 
     // Minimum contribution amount is 0.01 ETH
     uint256 public constant MIN_CONTRIBUTION = 10**16;
 
+    // One day soft time limit if max contribution reached
+    uint256 public constant ONE_DAY = 24*60*60;
+
+    // Max funding and soft end date
+    uint256 public constant MAX_USD_FUNDING = 400000;
     uint256 public totalUsdFunding;
     bool public maxUsdFundingReached = false;
-    uint256 public usdPerHundredETH;
+    uint256 public usdPerHundredEth;
     uint256 public softEndDate = END_DATE;
 
     // Ethers contributed and withdrawn
     uint256 public ethersContributed = 0;
 
-    // status variables
+    // Status variables
     bool public mintingCompleted = false;
     bool public fundingPaused = false;
+
+    // Multiplication factor for extra integer multiplication precision
+    uint256 public constant MULT_FACTOR = 10**9;
 
     // ------------------------------------------------------------------------
     // Events
     // ------------------------------------------------------------------------
-    event UsdRateSet(uint256 timestamp, uint256 value);
+    event UsdRateSet(uint256 _usdPerHundredEth);
     event TokensBought(address indexed buyer, uint256 ethers, uint256 tokens, 
           uint256 newTotalSupply, uint256 unitsPerEth);
 
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function SikobaContinuousSale() {
+    function SikobaContinuousSale(uint256 _usdPerHundredEth) {
+        setUsdPerHundredEth(_usdPerHundredEth);
     }
 
     // ------------------------------------------------------------------------
     // Owner sets the USD rate per 100 ETH - used to determine the funding cap
+    // If coinmarketcap $131.14 then set 13114
     // ------------------------------------------------------------------------
-    function setUsdPerHundredETH(uint256 value) external onlyOwner {
-        usdPerHundredETH = value; // if coinmarketcap $131.14 then send 13114
-        UsdRateSet(now, value);
+    function setUsdPerHundredEth(uint256 _usdPerHundredEth) onlyOwner {
+        usdPerHundredEth = _usdPerHundredEth;
+        UsdRateSet(_usdPerHundredEth);
     }
 
     // ------------------------------------------------------------------------
     // Calculate the number of tokens per ETH contributed
     // Linear (START_DATE, START_SKO1_UNITS) -> (END_DATE, END_SKO1_UNITS)
     // ------------------------------------------------------------------------
-    function unitsPerEth(uint256 at) constant returns (uint256) {
-        return START_SKO1_UNITS * 10**18 
-            + (END_SKO1_UNITS - START_SKO1_UNITS) * 10**18 
-            * (at - START_DATE) / (END_DATE - START_DATE);
+    function unitsPerEth() constant returns (uint256) {
+        return unitsPerEthAt(now);
+    }
+
+    function unitsPerEthAt(uint256 at) constant returns (uint256) {
+        if (at < START_DATE) {
+            return START_SKO1_UNITS * MULT_FACTOR;
+        } else if (at > END_DATE) {
+            return END_SKO1_UNITS * MULT_FACTOR;
+        } else {
+            return START_SKO1_UNITS * MULT_FACTOR
+                - ((START_SKO1_UNITS - END_SKO1_UNITS) * MULT_FACTOR 
+                   * (at - START_DATE)) / (END_DATE - START_DATE);
+        }
     }
 
     // ------------------------------------------------------------------------
@@ -341,32 +364,31 @@ contract SikobaContinuousSale is ERC20Token {
     }
 
     function buyTokens() payable {
-        // check conditions
+        // Check conditions
         if (fundingPaused) throw;
         if (now < START_DATE) throw;
         if (now > END_DATE) throw;
         if (now > softEndDate) throw;
-        if (msg.value < MIN_CONTRIBUTION) throw; // at least ETH 0.01
+        if (msg.value < MIN_CONTRIBUTION) throw;
 
-        // issue tokens
-        uint256 _unitsPerEth = unitsPerEth(now);
-        uint256 tokens = msg.value * _unitsPerEth / 10**18;
+        // Issue tokens
+        uint256 _unitsPerEth = unitsPerEth();
+        uint256 tokens = msg.value * _unitsPerEth / MULT_FACTOR;
         _totalSupply += tokens;
         balances[msg.sender] += tokens;
-        Transfer(0, this, tokens);
-        Transfer(this, msg.sender, tokens);
+        Transfer(0x0, msg.sender, tokens);
 
-        // approximative funding in USD
-        totalUsdFunding += msg.value * usdPerHundredETH / 10**20;
+        // Approximative funding in USD
+        totalUsdFunding += msg.value * usdPerHundredEth / 10**20;
         if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
-            softEndDate = now + 24*60*60;
+            softEndDate = now + ONE_DAY;
             maxUsdFundingReached = true;
         }
 
         ethersContributed += msg.value;
         TokensBought(msg.sender, msg.value, tokens, _totalSupply, _unitsPerEth);
 
-        // send balance to owner
+        // Send balance to owner
         owner.transfer(this.balance);
     }
 
@@ -391,12 +413,21 @@ contract SikobaContinuousSale is ERC20Token {
         if (mintingCompleted) throw;
         balances[participant] += tokens;
         _totalSupply += tokens;
-        Transfer(0, this, tokens);
-        Transfer(this, participant, tokens);
+        Transfer(0x0, participant, tokens);
     }
 
     function setMintingCompleted() onlyOwner {
         mintingCompleted = true;
+    }
+
+    // ------------------------------------------------------------------------
+    // Transfer out any accidentally sent ERC20 tokens
+    // ------------------------------------------------------------------------
+    function transferAnyERC20Token(
+        address tokenAddress, 
+        uint256 amount
+    ) onlyOwner returns (bool success) {
+        return ERC20Interface(tokenAddress).transfer(owner, amount);
     }
 }
 ```
@@ -412,4 +443,4 @@ contract SikobaContinuousSale is ERC20Token {
 
 <br />
 
-(c) BokkyPooBah / Bok Consulting Pty Ltd for Sikoba - May 27 2017
+(c) BokkyPooBah / Bok Consulting Pty Ltd for Sikoba - May 29 2017
