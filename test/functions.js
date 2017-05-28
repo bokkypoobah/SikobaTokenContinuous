@@ -9,9 +9,9 @@ var accountNames = {};
 
 addAccount(eth.accounts[0], "Account #0 - Miner");
 addAccount(eth.accounts[1], "Account #1 - Token Owner");
-addAccount(eth.accounts[2], "Account #2");
-addAccount(eth.accounts[3], "Account #3");
-addAccount(eth.accounts[4], "Account #4");
+addAccount(eth.accounts[2], "Account #2 - Purchased tokens");
+addAccount(eth.accounts[3], "Account #3 - Purchased tokens");
+addAccount(eth.accounts[4], "Account #4 - Minted tokens");
 addAccount(eth.accounts[5], "Account #5");
 addAccount(eth.accounts[6], "Account #6");
 
@@ -220,7 +220,7 @@ function printTokenContractDynamicDetails() {
     var approvalEvent = contract.Approval({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     approvalEvent.watch(function (error, result) {
-      console.log("RESULT: Approval Event " + i++ + ": owner=" + result.args._owner + " spender=" + result.args._spender + " " +
+      console.log("RESULT: Approval Event " + i++ + ": owner=" + result.args._owner + " spender=" + result.args._spender + " value=" +
         result.args._value.shift(-decimals) + " block=" + result.blockNumber);
     });
     approvalEvent.stopWatching();

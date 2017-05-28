@@ -184,17 +184,17 @@ contract SikobaContinuousSale is ERC20Token {
     uint8 public constant decimals = 18;
 
     // Thursday, 01-Jun-17 00:00:00 UTC
-    uint256 public constant START_DATE = 1495966656; // Sun 28 May 2017 10:17:36 UTC
+    uint256 public constant START_DATE = 1495979121; // Sun 28 May 2017 13:45:21 UTC
 
     // Tuesday, 31-Oct-17 23:59:59 UTC
-    uint256 public constant END_DATE = 1495966897; // Sun 28 May 2017 10:21:37 UTC
+    uint256 public constant END_DATE = 1495979662; // Sun 28 May 2017 13:54:22 UTC
 
     // number of SKO1 units per ETH at beginning and end
     uint256 public constant START_SKO1_UNITS = 1650;
     uint256 public constant END_SKO1_UNITS = 1200;
 
     // maximum funding in USD
-    uint256 public constant MAX_USD_FUNDING = 400000;
+    uint256 public constant MAX_USD_FUNDING = 20000;
 
     // Minimum contribution amount is 0.01 ETH
     uint256 public constant MIN_CONTRIBUTION = 10**16;
@@ -281,7 +281,7 @@ contract SikobaContinuousSale is ERC20Token {
         // approximative funding in USD
         totalUsdFunding += msg.value * usdPerHundredEth / 10**20;
         if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
-            softEndDate = now + 24*60*60;
+            softEndDate = now + 30;
             maxUsdFundingReached = true;
         }
 
@@ -318,5 +318,15 @@ contract SikobaContinuousSale is ERC20Token {
 
     function setMintingCompleted() onlyOwner {
         mintingCompleted = true;
+    }
+
+    // ------------------------------------------------------------------------
+    // Transfer out any accidentally sent ERC20 tokens
+    // ------------------------------------------------------------------------
+    function transferAnyERC20Token(
+        address tokenAddress, 
+        uint256 amount
+    ) onlyOwner returns (bool success) {
+        return ERC20Interface(tokenAddress).transfer(owner, amount);
     }
 }

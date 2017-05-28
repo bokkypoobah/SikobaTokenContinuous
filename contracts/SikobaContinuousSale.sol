@@ -199,6 +199,9 @@ contract SikobaContinuousSale is ERC20Token {
     // Minimum contribution amount is 0.01 ETH
     uint256 public constant MIN_CONTRIBUTION = 10**16;
 
+    // One day soft time limit if max contribution reached
+    uint256 public constant ONE_DAY = 24*60*60;
+
     uint256 public totalUsdFunding;
     bool public maxUsdFundingReached = false;
     uint256 public usdPerHundredEth;
@@ -269,7 +272,7 @@ contract SikobaContinuousSale is ERC20Token {
         if (now < START_DATE) throw;
         if (now > END_DATE) throw;
         if (now > softEndDate) throw;
-        if (msg.value < MIN_CONTRIBUTION) throw; // at least ETH 0.01
+        if (msg.value < MIN_CONTRIBUTION) throw;
 
         // issue tokens
         uint256 _unitsPerEth = unitsPerEth();
@@ -281,7 +284,7 @@ contract SikobaContinuousSale is ERC20Token {
         // approximative funding in USD
         totalUsdFunding += msg.value * usdPerHundredEth / 10**20;
         if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
-            softEndDate = now + 24*60*60;
+            softEndDate = now + ONE_DAY;
             maxUsdFundingReached = true;
         }
 
