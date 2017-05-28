@@ -202,21 +202,29 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.7 Account2 send 200 ETH - max funding reached; soft limit +30seconds kicks in";
+var testMessage = "Test 1.7 Pause funding; account5 send funds unsuccessfully; restart funding";
 console.log("RESULT: " + testMessage);
-var tx1_7_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("200", "ether")});
+var tx1_7_1 = token.pause({from: tokenOwnerAccount, gas: 100000});
+while (txpool.status.pending > 0) {
+}
+var tx1_7_2 = eth.sendTransaction({from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("100", "ether")});
+while (txpool.status.pending > 0) {
+}
+var tx1_7_3 = token.restart({from: tokenOwnerAccount, gas: 100000});
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfGasEqualsGasUsed(tx1_7_1, testMessage);
+failIfGasEqualsGasUsed(tx1_7_1, testMessage + " - pause funding");
+failIfGasEqualsGasUsed(tx1_7_2, testMessage + " - account5 sending funds unsuccessfully");
+failIfGasEqualsGasUsed(tx1_7_3, testMessage + " - restart funding");
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.8 Account2 send 2000 ETH - soft limit in effect and max funding reached";
+var testMessage = "Test 1.8 Account2 send 200 ETH - max funding reached; soft limit +30seconds kicks in";
 console.log("RESULT: " + testMessage);
-var tx1_8_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("2000", "ether")});
+var tx1_8_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("200", "ether")});
 while (txpool.status.pending > 0) {
 }
 printBalances();
@@ -225,7 +233,20 @@ printTokenContractDynamicDetails();
 console.log("RESULT: ");
 
 
-var endDateTime = token.softEndDate();
+// -----------------------------------------------------------------------------
+var testMessage = "Test 1.9 Account2 send 2000 ETH - soft limit in effect and max funding reached";
+console.log("RESULT: " + testMessage);
+var tx1_9_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("2000", "ether")});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfGasEqualsGasUsed(tx1_9_1, testMessage);
+printTokenContractDynamicDetails();
+console.log("RESULT: ");
+
+
+// Pause - add 1 second to make sure we are past the soft end date
+var endDateTime = token.softEndDate().plus(1);
 var endDate = new Date(endDateTime * 1000);
 console.log("RESULT: Waiting until soft funding period has ended at " + endDateTime + " " + endDate + " currentDate=" + new Date());
 while ((new Date()).getTime() < endDate.getTime()) {
@@ -235,31 +256,31 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 1.9 Account2 send 400 ETH - soft end date over";
+var testMessage = "Test 2.0 Account2 send 400 ETH - soft end date over";
 console.log("RESULT: " + testMessage);
-var tx1_9_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("400", "ether")});
+var tx2_0_1 = eth.sendTransaction({from: account2, to: tokenAddress, gas: 400000, value: web3.toWei("400", "ether")});
 while (txpool.status.pending > 0) {
 }
 printBalances();
-passIfGasEqualsGasUsed(tx1_9_1, testMessage);
+passIfGasEqualsGasUsed(tx2_0_1, testMessage);
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var testMessage = "Test 2.0 Change Ownership";
+var testMessage = "Test 2.1 Change Ownership";
 console.log("RESULT: " + testMessage);
-var tx2_0_1 = token.transferOwnership(minerAccount, {from: tokenOwnerAccount, gas: 100000});
+var tx2_1_1 = token.transferOwnership(minerAccount, {from: tokenOwnerAccount, gas: 100000});
 while (txpool.status.pending > 0) {
 }
-var tx2_0_2 = token.acceptOwnership({from: minerAccount, gas: 100000});
+var tx2_1_2 = token.acceptOwnership({from: minerAccount, gas: 100000});
 while (txpool.status.pending > 0) {
 }
-printTxData("tx2_0_1", tx2_0_1);
-printTxData("tx2_0_2", tx2_0_2);
+printTxData("tx2_1_1", tx2_1_1);
+printTxData("tx2_1_2", tx2_1_2);
 printBalances();
-failIfGasEqualsGasUsed(tx2_0_1, testMessage + " - Change owner");
-failIfGasEqualsGasUsed(tx2_0_2, testMessage + " - Accept ownership");
+failIfGasEqualsGasUsed(tx2_1_1, testMessage + " - Change owner");
+failIfGasEqualsGasUsed(tx2_1_2, testMessage + " - Accept ownership");
 printTokenContractDynamicDetails();
 console.log("RESULT: ");
 

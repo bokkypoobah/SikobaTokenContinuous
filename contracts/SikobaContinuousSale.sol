@@ -189,12 +189,9 @@ contract SikobaContinuousSale is ERC20Token {
     // Tuesday, 31-Oct-17 23:59:59 UTC
     uint256 public constant END_DATE = 1509494399;
 
-    // number of SKO1 units per ETH at beginning and end
+    // Number of SKO1 units per ETH at beginning and end
     uint256 public constant START_SKO1_UNITS = 1650;
     uint256 public constant END_SKO1_UNITS = 1200;
-
-    // maximum funding in USD
-    uint256 public constant MAX_USD_FUNDING = 400000;
 
     // Minimum contribution amount is 0.01 ETH
     uint256 public constant MIN_CONTRIBUTION = 10**16;
@@ -202,6 +199,8 @@ contract SikobaContinuousSale is ERC20Token {
     // One day soft time limit if max contribution reached
     uint256 public constant ONE_DAY = 24*60*60;
 
+    // Max funding and soft end date
+    uint256 public constant MAX_USD_FUNDING = 400000;
     uint256 public totalUsdFunding;
     bool public maxUsdFundingReached = false;
     uint256 public usdPerHundredEth;
@@ -210,7 +209,7 @@ contract SikobaContinuousSale is ERC20Token {
     // Ethers contributed and withdrawn
     uint256 public ethersContributed = 0;
 
-    // status variables
+    // Status variables
     bool public mintingCompleted = false;
     bool public fundingPaused = false;
 
@@ -247,6 +246,7 @@ contract SikobaContinuousSale is ERC20Token {
     function unitsPerEth() constant returns (uint256) {
         return unitsPerEthAt(now);
     }
+
     function unitsPerEthAt(uint256 at) constant returns (uint256) {
         if (at < START_DATE) {
             return START_SKO1_UNITS * MULT_FACTOR;
@@ -267,21 +267,21 @@ contract SikobaContinuousSale is ERC20Token {
     }
 
     function buyTokens() payable {
-        // check conditions
+        // Check conditions
         if (fundingPaused) throw;
         if (now < START_DATE) throw;
         if (now > END_DATE) throw;
         if (now > softEndDate) throw;
         if (msg.value < MIN_CONTRIBUTION) throw;
 
-        // issue tokens
+        // Issue tokens
         uint256 _unitsPerEth = unitsPerEth();
         uint256 tokens = msg.value * _unitsPerEth / MULT_FACTOR;
         _totalSupply += tokens;
         balances[msg.sender] += tokens;
         Transfer(0x0, msg.sender, tokens);
 
-        // approximative funding in USD
+        // Approximative funding in USD
         totalUsdFunding += msg.value * usdPerHundredEth / 10**20;
         if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
             softEndDate = now + ONE_DAY;
@@ -291,7 +291,7 @@ contract SikobaContinuousSale is ERC20Token {
         ethersContributed += msg.value;
         TokensBought(msg.sender, msg.value, tokens, _totalSupply, _unitsPerEth);
 
-        // send balance to owner
+        // Send balance to owner
         owner.transfer(this.balance);
     }
 
