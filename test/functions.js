@@ -228,25 +228,23 @@ function printTokenContractDynamicDetails() {
     var transferEvent = contract.Transfer({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     transferEvent.watch(function (error, result) {
-      console.log("RESULT: Transfer Event " + i++ + ": from=" + result.args.from + " to=" + result.args.to +
-        " value=" + result.args.value.shift(-decimals) + " block=" + result.blockNumber);
+      console.log("RESULT: Transfer Event " + i++ + ": from=" + result.args._from + " to=" + result.args._to +
+        " value=" + result.args._value.shift(-decimals) + " block=" + result.blockNumber);
     });
     transferEvent.stopWatching();
-    
+
     var usdRateSetEvent = contract.UsdRateSet({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     usdRateSetEvent.watch(function (error, result) {
-      console.log("RESULT: UsdRateSet Event " + i++ + ": _usdPerHundredEth=" + result.args._usdPerHundredEth + " " + result.blockNumber);
+      console.log("RESULT: UsdRateSet Event " + i++ + ": _usdPerHundredEth=" + result.args._usdPerHundredEth + " block=" + result.blockNumber);
     });
     usdRateSetEvent.stopWatching();
 
     var tokensBoughtEvent = contract.TokensBought({}, { fromBlock: dynamicDetailsFromBlock, toBlock: latestBlock });
     i = 0;
     tokensBoughtEvent.watch(function (error, result) {
-      console.log("RESULT: TokensBought Event " + i++ + ": buyer=" + result.args.buyer + " " + 
-        " ethers=" + result.args.ethers.shift(-18) + " tokens=" + result.args.tokens.shift(-decimals) + 
-        " newTotalSupply=" + results.args.newTotalSupply.shift(-decimals) + 
-        " unitsPerEth=" + unitsPerEth + " " + result.blockNumber);
+      // Note that there is a bug in `geth` displaying the value for newTotalSupply, so JSON.stringify(...) is used instead
+      console.log("RESULT: TokensBought Event " + i++ + ": args=" + JSON.stringify(result.args) + " block=" + result.blockNumber);
     });
     tokensBoughtEvent.stopWatching();
 
