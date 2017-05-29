@@ -60,7 +60,7 @@ See [README.md](README.md).
 * [x] Areas with potential underflow errors in `transfer(...)` and `transferFrom(...)` have the logic to prevent underflows
 * [x] There is a potential underflow error in `unitsPerEthAt(...)` but this is protected by a conditional check
 * [x] Function and event names are differentiated by case - function names begin with a lowercase character and event names begin with an uppercase character
-* [x] The default constructor will receive contributions during the crowdfunding phase and mint tokens
+* [x] The default function will receive contributions during the crowdfunding phase and mint tokens. Users can also directly call `buyTokens()`
 * [x] The function `transferAnyERC20Token(...)` has been added in case the owner has to free any accidentally trapped ERC20 tokens
 * [x] The test results can be found in [test/test1results.txt](test/test1results.txt) for the results and [test/test1output.txt](test/test1output.txt) for the full output
 * [x] ETH contributed to this smart contract is immediately moved to the owner's account
