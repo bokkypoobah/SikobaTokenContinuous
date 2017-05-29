@@ -99,10 +99,10 @@ See [README.md](README.md).
 
 My comments in the following code are market in the lines beginning with `// NOTE: `.
 
-Following is the source code for [../0801077c292e5f0736ccf3653cc843195a1bbc34/contracts/SikobaContinuousSale.sol](../0801077c292e5f0736ccf3653cc843195a1bbc34/contracts/SikobaContinuousSale.sol): 
+Following is the source code for [../35e098e3e943a412f5411765b6aab00fba62a879/contracts/SikobaContinuousSale.sol](../35e098e3e943a412f5411765b6aab00fba62a879/contracts/SikobaContinuousSale.sol): 
 
 ```javascript
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.10;
 
 // ----------------------------------------------------------------------------
 //
