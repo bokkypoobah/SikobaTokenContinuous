@@ -1,4 +1,4 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.10;
 
 // ----------------------------------------------------------------------------
 //
@@ -183,10 +183,10 @@ contract SikobaContinuousSale is ERC20Token {
     uint8 public constant decimals = 18;
 
     // Thursday, 01-Jun-17 00:00:00 UTC
-    uint256 public constant START_DATE = 1496030329; // Mon 29 May 2017 03:58:49 UTC
+    uint256 public constant START_DATE = 1496037849; // Mon 29 May 2017 06:04:09 UTC
 
     // Tuesday, 31-Oct-17 23:59:59 UTC
-    uint256 public constant END_DATE = 1496030870; // Mon 29 May 2017 04:07:50 UTC
+    uint256 public constant END_DATE = 1496038390; // Mon 29 May 2017 06:13:10 UTC
 
     // Number of SKO1 units per ETH at beginning and end
     uint256 public constant START_SKO1_UNITS = 1650;
