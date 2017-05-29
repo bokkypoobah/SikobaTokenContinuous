@@ -1,4 +1,4 @@
-# SikobaTokenContinuous Audit (Work In Progress)
+# SikobaTokenContinuous Audit
 
 See [README.md](README.md).
 
@@ -99,7 +99,7 @@ See [README.md](README.md).
 
 My comments in the following code are market in the lines beginning with `// NOTE: `.
 
-Following is the source code for [../06443ee649c3c02a5469bdfe26ab33e4ac8443c3/contracts/SikobaContinuousSale.sol](../06443ee649c3c02a5469bdfe26ab33e4ac8443c3/contracts/SikobaContinuousSale.sol): 
+Following is the source code for [../0801077c292e5f0736ccf3653cc843195a1bbc34/contracts/SikobaContinuousSale.sol](../0801077c292e5f0736ccf3653cc843195a1bbc34/contracts/SikobaContinuousSale.sol): 
 
 ```javascript
 pragma solidity ^0.4.8;
@@ -139,12 +139,10 @@ contract Owned {
         newOwner = _newOwner;
     }
 
-    // NOTE: The conditional check should throw if the check fails
     function acceptOwnership() {
-        if (msg.sender == newOwner) {
-            OwnershipTransferred(owner, newOwner);
-            owner = newOwner;
-        }
+        if (msg.sender != newOwner) throw;
+        OwnershipTransferred(owner, newOwner);
+        owner = newOwner;
     }
 }
 
