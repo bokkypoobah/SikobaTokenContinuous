@@ -117,9 +117,9 @@ contract ERC20Token is Owned, ERC20Interface {
     }
 
     // ------------------------------------------------------------------------
-    // Allow _spender to withdraw from your account, multiple times, up to the
-    // _value amount. If this function is called again it overwrites the
-    // current allowance with _value.
+    // Allow _spender to withdraw from your account, multiple times, up to
+    // _amount. If this function is called again it overwrites the
+    // current allowance with _amount.
     // ------------------------------------------------------------------------
     function approve(
         address _spender,
@@ -157,7 +157,7 @@ contract ERC20Token is Owned, ERC20Interface {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender's account
+    // transferred by _spender
     // ------------------------------------------------------------------------
     function allowance(
         address _owner, 
@@ -205,7 +205,7 @@ contract SikobaContinuousSale is ERC20Token {
     uint256 public usdPerHundredEth;
     uint256 public softEndDate = END_DATE;
 
-    // Ethers contributed and withdrawn
+    // Ethers contributed and transferred to the owner's account
     uint256 public ethersContributed = 0;
 
     // Status variables
@@ -280,7 +280,7 @@ contract SikobaContinuousSale is ERC20Token {
         balances[msg.sender] += tokens;
         Transfer(0x0, msg.sender, tokens);
 
-        // Approximative funding in USD
+        // Approximate funding in USD
         totalUsdFunding += msg.value * usdPerHundredEth / 10**20;
         if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
             softEndDate = now + ONE_DAY;
@@ -309,7 +309,7 @@ contract SikobaContinuousSale is ERC20Token {
     // ------------------------------------------------------------------------
     // Owner can mint tokens for contributions made outside the ETH contributed
     // to this token contract. This can only occur until mintingCompleted is
-    // true
+    // true. Owner calls setMintingCompleted() when minting is completed.
     // ------------------------------------------------------------------------
     function mint(address participant, uint256 tokens) onlyOwner {
         if (mintingCompleted) throw;

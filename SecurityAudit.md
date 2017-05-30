@@ -99,7 +99,7 @@ See [README.md](README.md).
 
 My comments in the following code are market in the lines beginning with `// NOTE: `.
 
-Following is the source code for [../35e098e3e943a412f5411765b6aab00fba62a879/contracts/SikobaContinuousSale.sol](../35e098e3e943a412f5411765b6aab00fba62a879/contracts/SikobaContinuousSale.sol): 
+Following is the source code for [../ed20b8e5467fbdffab7c8c1ac69f5f16b3cc7084/contracts/SikobaContinuousSale.sol](../ed20b8e5467fbdffab7c8c1ac69f5f16b3cc7084/contracts/SikobaContinuousSale.sol): 
 
 ```javascript
 pragma solidity ^0.4.10;
@@ -228,9 +228,9 @@ contract ERC20Token is Owned, ERC20Interface {
     }
 
     // ------------------------------------------------------------------------
-    // Allow _spender to withdraw from your account, multiple times, up to the
-    // _value amount. If this function is called again it overwrites the
-    // current allowance with _value.
+    // Allow _spender to withdraw from your account, multiple times, up to
+    // _amount. If this function is called again it overwrites the
+    // current allowance with _amount.
     // ------------------------------------------------------------------------
     // NOTE: Ok
     function approve(
@@ -270,7 +270,7 @@ contract ERC20Token is Owned, ERC20Interface {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender's account
+    // transferred by _spender
     // ------------------------------------------------------------------------
     // NOTE: Ok
     function allowance(
@@ -326,7 +326,7 @@ contract SikobaContinuousSale is ERC20Token {
     uint256 public usdPerHundredEth;
     uint256 public softEndDate = END_DATE;
 
-    // Ethers contributed and withdrawn
+    // Ethers contributed and transferred to the owner's account
     // NOTE: Ok
     uint256 public ethersContributed = 0;
 
@@ -414,7 +414,7 @@ contract SikobaContinuousSale is ERC20Token {
         balances[msg.sender] += tokens;
         Transfer(0x0, msg.sender, tokens);
 
-        // Approximative funding in USD
+        // Approximate funding in USD
         // NOTE: Ok
         totalUsdFunding += msg.value * usdPerHundredEth / 10**20;
         if (!maxUsdFundingReached && totalUsdFunding > MAX_USD_FUNDING) {
@@ -448,7 +448,7 @@ contract SikobaContinuousSale is ERC20Token {
     // ------------------------------------------------------------------------
     // Owner can mint tokens for contributions made outside the ETH contributed
     // to this token contract. This can only occur until mintingCompleted is
-    // true
+    // true. Owner calls setMintingCompleted() when minting is completed.
     // ------------------------------------------------------------------------
     // NOTE: Ok. Only owner
     function mint(address participant, uint256 tokens) onlyOwner {
